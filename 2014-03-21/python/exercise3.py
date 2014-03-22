@@ -135,6 +135,13 @@ mock_up_3D = STRUCT([north,two_and_a_half_model_r,south, east, west])
 
 
 
+#exercise 3
+
+
+
+
+
+
 
 
 
