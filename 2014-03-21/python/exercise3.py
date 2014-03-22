@@ -86,7 +86,7 @@ appo = COLOR(GRAY)(extrude(DIFFERENCE([base_2,base_3]),2.57))
 appo2 = DIFFERENCE([base_1,base_3])
 floor1 = STRUCT([appo2,appo])
 
-#ho i piani generici floor0 e tetto floor1(da rinominare)
+#ho i piani generici floor0 e tetto floor1
 
 
 
@@ -136,10 +136,20 @@ mock_up_3D = STRUCT([north,two_and_a_half_model_r,south, east, west])
 
 
 #exercise 3
+main_cube = CUBOID([53,60,53])
+
+fila_1_solid = extrude(fila_1_t, 53)
+
+archi_solid = COLOR(BLACK)(STRUCT([fila_1_solid,T([2])([9.93])(fila_1_solid),T([2])([9.93+8.83])(fila_1_solid),T([2])([9.93+(8.83*2)])(fila_1_solid),T([2])([9.93+(8.83*3)])(fila_1_solid),T([2])([9.93+(8.83*4)])(fila_1_solid)] )   )
+
+archi_solid_r = T([3])([53])(R([1,3])(-PI/2)(archi_solid))
+
+top_cube =  R([2,3])(-PI/2)(COLOR(GRAY)(T([1,2])([1.35+4.38,1.35+4.38-53])(CUBOID([(7*4.38)+(8*1.35), (7*4.38)+(8*1.35),(60+2.57)]))))
 
 
+solid_model_3D = STRUCT([main_cube, archi_solid, archi_solid_r, top_cube])
 
-
+#VIEW(solid_model_3D)
 
 
 
