@@ -5,33 +5,49 @@
 
 <BODY BACKGROUND="">
 
-<CENTER><h1>Il Palazzo della Civiltà Italiana</h1></CENTER>
+<CENTER><h1>Il Palazzo della Civilta' Italiana</h1></CENTER>
 
 <FONT SIZE=+2>
 
-<h2>Studente: Matteo Sabatini</h2>
-<h2>Matricola: 426377</h2>
+<h4>Studente: Matteo Sabatini</h4>
+<h4>Matricola: 426377</h4>
 
-<UL>      <!-- questo marcatore UL segna l'inizio
-               di una Unordered List, che non conterra'
-               nessun LI (List Item), l'effetto sara' 
-               quello di una semplice indentatura.   -->
+<body>Chiamato anche dai romani "Colosseo Quadrato", il palazzo della Civilta' e del Lavoro e' un edificio monumentale che si trova a Roma nel moderno quartiere dell'EUR. Concepito fin dal 1936 e progettato nel 1937, la sua costruzione inizio' nel luglio 1938 e fu inaugurato, benche' incompleto, nel 1940; i lavori si interruppero nel 1943 per poi essere ultimati nel dopoguerra.
+L'edificio e' a pianta quadrata e appare come un parallelepipedo a quattro facce uguali, con struttura in cemento armato e copertura interamente in travertino e presenta 54 archi per facciata (9 in linea e 6 in colonna).
+E' stato dichiarato dal ministero per i Beni e le Attivita' Culturali edificio di interesse culturale, ed e' quindi vincolato a usi espositivi e museali; dal luglio 2013 e' concesso in affitto fino al 2028 al gruppo di alta moda Fendi.
 
-  Scritta indentata seguita da un break<BR>
-  il break mi ha portato a riga nuova<P>
-  il paragrafo stacca di piu' (e permette di cambiare stile)
-</UL>     <!-- fine dell'indentatura -->
+File del Progetto:<BR>
+<a href=”/python/exercise1.py”>exercise1.py </a><BR>
+<a href=”/python/exercise2.py”>exercise2.py </a><BR>
+<a href=”/python/exercise3.py”>exercise3.py </a><BR> 
+<a href=”/python/exercise4.py”>exercise4.py </a><BR>
 
-<UL>      <!-- questa � una lista vera, invece -->
-  <LI>elemento uno</LI>
-  <LI>elemento due</LI>
-</UL>
 
-<CENTER>scritta centrata</CENTER>
+Immagini:<BR>
+<img src="/images/100-_large.jpg" /><BR>
+<img src="/images/451px-Palazzo_civiltà_EUR.jpg" /><BR>
+<img src="/images/index022.jpeg" /><BR>
+<img src="/images/index023.jpeg" /><BR>
+<img src="/images/palazzo civiltà_0.jpg" /><BR>
+
+
+
+
+ </body>
+
+
+<h3>Link utili:</h3>
+<ul>
+<li>http://it.wikipedia.org/wiki/Palazzo_della_Civilt%C3%A0_Italiana</li>
+<li>http://www.romaeur.it/patrimonio/edifici-storici/palazzo-della-civilt%C3%A0-italiana</li>
+<li>http://www.utetgiuridica.it/flips_data/7/html/22.html</li>
+<li>http://www.uniroma2.it/didattica/COA2/deposito/9.pdf</li>
+</ul>
+
+
+
 
 </FONT>
-<HR WIDTH="100%">       <!-- una Hard Line che prendera' 
-                             il 100% della pagina -->
-
+<HR WIDTH="100%">      
 </BODY>
 </HTML>

@@ -149,7 +149,7 @@ top_cube =  R([2,3])(-PI/2)(COLOR(GRAY)(T([1,2])([1.35+4.38,1.35+4.38-53])(CUBOI
 
 solid_model_3D = STRUCT([main_cube, archi_solid, archi_solid_r, top_cube])
 
-#VIEW(solid_model_3D)
+
 
 
 

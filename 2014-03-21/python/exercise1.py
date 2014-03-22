@@ -65,7 +65,7 @@ interno_col_t = T([1,2])([(1.35)+(4.38),(1.35)+(4.38)])(interno_ex_col)
 floor0 = STRUCT([diff, interno_col_t, COLOR(BLACK)(quadrati_lato1), COLOR(BLACK)(quadrati_lato2), COLOR(BLACK)(quadrati_lato3_t), COLOR(BLACK)(quadrati_lato4_t), COLOR(BLACK)(quadrati_latoInt1_t), COLOR(BLACK)(quadrati_latoInt2_t), COLOR(BLACK)(quadrati_latoInt3_t), COLOR(BLACK)(quadrati_latoInt4_t)])
 
 
-#VIEW(generic_floor)
+
 
 
 #floor1_2D

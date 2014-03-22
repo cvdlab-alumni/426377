@@ -106,7 +106,7 @@ arco = (STRUCT([b,s]))
 fila_1 = STRUCT( [arco, STRUCT(NN(8)([traslateVector( [1], [1.35+4.38 ]),arco])) ])
 fila_1_t = COLOR(BLACK)(T([1])([1.35])(fila_1))
 
-#fila_1_m = MAP([S3,S2,S1])(fila_1_t)
+
 
 c1 = CUBOID([53,9.93])
 c2 = CUBOID([53,8.83])
@@ -126,17 +126,17 @@ south =T([3])([-53])( STRUCT([floor_0, T([2])([9.93])(floor_1),T([2])([9.93+8.83
 east = R([1,3])(-PI/2)(STRUCT([floor_0, T([2])([9.93])(floor_1),T([2])([9.93+8.83])(floor_2),T([2])([9.93+(8.83*2)])(floor_3),T([2])([9.93+(8.83*3)])(floor_4),T([2])([9.93+(8.83*4)])(floor_5)]) )
 
 west = T([1])([53])(east)
-#STRUCT([floor_0, T([2])([9.93])(floor_1),T([2])([9.93+8.83])(floor_2),T([2])([9.93+(8.83*2)])(floor_3),T([2])([9.93+(8.83*3)])(floor_4),T([2])([9.93+(8.83*4)])(floor_5)]) 
-
-build_r = R([2,3])(-PI/2)(building)
-
-strutt = STRUCT([north,build_r,south, east, west])
 
 
+two_and_a_half_model_r = R([2,3])(-PI/2)(two_and_a_half_model)
+
+mock_up_3D = STRUCT([north,two_and_a_half_model_r,south, east, west])
 
 
 
-#pillar0_below = STRUCT( [pillar_circle_model, STRUCT(NN(4)([ traslateVector( [1], [dist_pillar0_x]), pillar_circle_model ])) ])
+
+
+
 
 
 
