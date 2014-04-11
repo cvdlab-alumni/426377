@@ -194,7 +194,7 @@ interno3D_col_t = T([1,2])([(1.35)+(4.38),(1.35)+(4.38)])(interno3D_ex_col)
 cubo_ext = (CUBOID([41.54,41.54,60]))
 cubo_int = T([1,2])([1.35,1.35])(CUBOID([38.84,38.84,60]))
 
-celeste = rgb([93,155,155])
+celeste = rgb([176,224,230])
 
 guscio_interno =COLOR(celeste) (T([1,2])([5.73,5.73])(DIFFERENCE([cubo_ext,cubo_int])))
 
@@ -220,8 +220,3 @@ floor1_3D = STRUCT([appo2,appo])
 
 
 floor3D = STRUCT([guscio_interno, interno3D_col_t,floor0_3D, T(3)([9.93])(floor0_3D), T(3)([9.93+8.83])(floor0_3D), T(3)([9.93+(8.83*2)])(floor0_3D), T(3)([9.93+(8.83*3)])(floor0_3D), T(3)([9.93+(8.83*4)])(floor0_3D), T(3)([9.93+(8.83*4)+(14.72)])(floor1_3D)])
-
-VIEW(floor3D)
-
-
-
