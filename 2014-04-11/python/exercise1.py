@@ -1,3 +1,4 @@
+
 from pyplasm import *
 
 
@@ -14,7 +15,8 @@ def semicircle(r):
 	dom2D = PROD([INTERVALS(PI)(50), INTERVALS(1)(1)])
 	return S([1,2])([r,r])(MAP(ball)(dom2D))
 
-
+def rgb(color):
+	return [color[0]/255.0, color[1]/255.0, color[2]/255.0]
 
 #floor0_2D
 base_1 = CUBOID([53,53])
@@ -28,15 +30,10 @@ quad = COLOR(BLACK)(CUBOID([1.35,1.35]))
 
 quadrati_lato1 = STRUCT([quad,STRUCT(NN(9)([traslateVector([1],[4.38+1.35]),quad]))])
 
-
-
 quadrati_lato2 = STRUCT([quad,STRUCT(NN(9)([traslateVector([2],[4.38+1.35]),quad]))])
-
-
 
 quadrati_lato3 = STRUCT([quad,STRUCT(NN(9)([traslateVector([1],[4.38+1.35]),quad]))])
 quadrati_lato3_t = T([1,2])([0,53-1.35])(quadrati_lato3)
-
 
 quadrati_lato4 = STRUCT([quad,STRUCT(NN(9)([traslateVector([2],[4.38+1.35]),quad]))])
 quadrati_lato4_t = T([1,2])([53-1.35,0])(quadrati_lato4)
@@ -63,7 +60,24 @@ floor_p3 = CUBOID([.45,(.45*4)+4.38])
 floor_p4 = CUBOID([(4.38*3)+(1.35*3),.45])
 floor_p5 = CUBOID([.45,2])
 
-interno = STRUCT([T([1,2])([1.35,(.45+(2*4.38)+(2*1.35))])(floor_p1), T([1,2])([1.35,(.45+(5*4.38)+(5*1.35))])(floor_p1), T([1,2])([(2*1.35)+(2*4.38),(.45+(2*4.38)+(2*1.35))])(floor_p3),  T([1,2])([(2*1.35)+(2*4.38),(.45+(4*4.38)+(4*1.35))])(floor_p3),  T([1,2])([(4*1.35)+(4*4.38),(.45+(2*4.38)+(2*1.35))])(floor_p3),  T([1,2])([(4*1.35)+(4*4.38),(.45+(4*4.38)+(4*1.35))])(floor_p3), T([1,2])([(7*1.35)+(7*4.38),(.45+(2*4.38)+(2*1.35))])(floor_p3), T([1,2])([(7*1.35)+(7*4.38),(.45+(4*4.38)+(4*1.35))])(floor_p3),  T([1,2])([(1.35),(.45+(3*4.38)+(3*1.35))])(floor_p2), T([1,2])([(1.35),(.45+(4*4.38)+(4*1.35))])(floor_p2), T([1,2])([(4*1.35)+(4*4.38),(.45+(3*4.38)+(3*1.35))])(floor_p4),  T([1,2])([(4*1.35)+(4*4.38),(.45+(4*4.38)+(4*1.35))])(floor_p4), T([1,2])([(7*1.35)+(6*4.38),((2*.45)+(3*4.38)+(3*1.35))])(floor_p5),  T([1,2])([(7*1.35)+(6*4.38),((2*.45)+(3*4.38)+(3*1.35)+3.3)])(floor_p5)  ])
+parete1 = T([1,2])([1.35,(.45+(2*4.38)+(2*1.35))])(floor_p1)
+parete2 =  T([1,2])([1.35,(.45+(5*4.38)+(5*1.35))])(floor_p1)
+parete3 = T([1,2])([(2*1.35)+(2*4.38),(.45+(2*4.38)+(2*1.35))])(floor_p3)
+parete4 = T([1,2])([(2*1.35)+(2*4.38),(.45+(4*4.38)+(4*1.35))])(floor_p3)
+parete5 = T([1,2])([(4*1.35)+(4*4.38),(.45+(2*4.38)+(2*1.35))])(floor_p3)
+parete6 = T([1,2])([(4*1.35)+(4*4.38),(.45+(4*4.38)+(4*1.35))])(floor_p3)
+parete7 = T([1,2])([(7*1.35)+(7*4.38),(.45+(2*4.38)+(2*1.35))])(floor_p3)
+parete8 = T([1,2])([(7*1.35)+(7*4.38),(.45+(4*4.38)+(4*1.35))])(floor_p3)
+parete9 =  T([1,2])([(1.35),(.45+(3*4.38)+(3*1.35))])(floor_p2)
+parete10 = T([1,2])([(1.35),(.45+(4*4.38)+(4*1.35))])(floor_p2)
+parete11 = T([1,2])([(4*1.35)+(4*4.38),(.45+(3*4.38)+(3*1.35))])(floor_p4)
+parete12 = T([1,2])([(4*1.35)+(4*4.38),(.45+(4*4.38)+(4*1.35))])(floor_p4)
+parete13 = T([1,2])([(7*1.35)+(6*4.38),((2*.45)+(3*4.38)+(3*1.35))])(floor_p5)
+parete14 = T([1,2])([(7*1.35)+(6*4.38),((2*.45)+(3*4.38)+(3*1.35)+3.3)])(floor_p5)  
+
+
+
+interno = STRUCT([parete1, parete2, parete3, parete4  , parete5,  parete6, parete7,parete8, parete9, parete10, parete11,  parete12, parete13,  parete14])
 
 
 interno_ex = extrude(interno, 1)
@@ -93,7 +107,8 @@ floor1 = STRUCT([appo2,appo])
 building = STRUCT([floor0, T(3)([9.93])(floor0), T(3)([9.93+8.83])(floor0), T(3)([9.93+(8.83*2)])(floor0), T(3)([9.93+(8.83*3)])(floor0), T(3)([9.93+(8.83*4)])(floor0), T(3)([9.93+(8.83*4)+(14.72)])(floor1)])
 
 two_and_a_half_model = building
-VIEW(two_and_a_half_model)
+
+
 #exercise2
 
 #creo arco
@@ -150,9 +165,6 @@ top_cube =  R([2,3])(-PI/2)(COLOR(GRAY)(T([1,2])([1.35+4.38,1.35+4.38-53])(CUBOI
 solid_model_3D = STRUCT([main_cube, archi_solid, archi_solid_r, top_cube])
 
 
-
-#exercise4
-
 max = 0.60
 min = 0.60
 
@@ -165,19 +177,54 @@ stair = R([2,3])(-PI/2)(T([1,2,3])([10,(5*1.35)+(4*4.38)+3,0])(ramp))
 
 mock_up_3D = STRUCT([mock_up_3D, stair])
 
-VIEW(solid_model_3D)
+
+#inizio homework2, tutto il codice precedente appartiene all'homework 1 e costituisce la costruzione dell'edificio
+
+
+#exercise1
+
+#utilizzo le pareti del modello 2,5D creato precedentemente
+
+
+interno3D = STRUCT([parete1, parete2, parete3, parete4  , parete5,  parete6, parete7,parete8, parete9, parete10, parete11,  parete12, parete13,  parete14])
+
+
+interno3D_ex = extrude(interno3D, 60)
+interno3D_ex_col = COLOR(GRAY)(interno3D_ex)
+interno3D_col_t = T([1,2])([(1.35)+(4.38),(1.35)+(4.38)])(interno3D_ex_col)
+
+cubo_ext = (CUBOID([38.84,38.84,60]))
+cubo_int = T([1,2])([.45,.45])(CUBOID([37.94,37.94,60]))
+
+celeste = rgb([93,155,155])
+
+guscio_interno =COLOR(celeste) (T([1,2])([7.08,7.08])(DIFFERENCE([cubo_ext,cubo_int])))
 
 
 
+floor0_3D = STRUCT([diff,  COLOR(BLACK)(quadrati_lato1), COLOR(BLACK)(quadrati_lato2), COLOR(BLACK)(quadrati_lato3_t), COLOR(BLACK)(quadrati_lato4_t), COLOR(BLACK)(quadrati_latoInt1_t), COLOR(BLACK)(quadrati_latoInt2_t), COLOR(BLACK)(quadrati_latoInt3_t), COLOR(BLACK)(quadrati_latoInt4_t)])
+
+
+#VIEW(generic_floor)
+
+
+#floor1_3D
+
+base_1 = CUBOID([53,53])
+base_2 = COLOR(GRAY)(T([1,2])([1.35+4.38,1.35+4.38])(CUBOID([(7*4.38)+(8*1.35), (7*4.38)+(8*1.35)])))
+base_3 = T([1,2])([(3*1.35)+(2*4.38)+5.73,(.9)+(3*1.35)+(3*4.38)])(CUBOID([(2*4.38)+1.35,.9+(3*4.38)+(2*1.35)]))
+
+appo = COLOR(GRAY)(extrude(DIFFERENCE([base_2,base_3]),2.57))
+appo2 = DIFFERENCE([base_1,base_3])
+floor1_3D = STRUCT([appo2,appo])
+
+#ho i piani generici floor0 e tetto floor1
 
 
 
+floor3D = STRUCT([guscio_interno, interno3D_col_t,floor0_3D, T(3)([9.93])(floor0_3D), T(3)([9.93+8.83])(floor0_3D), T(3)([9.93+(8.83*2)])(floor0_3D), T(3)([9.93+(8.83*3)])(floor0_3D), T(3)([9.93+(8.83*4)])(floor0_3D), T(3)([9.93+(8.83*4)+(14.72)])(floor1_3D)])
 
-
-
-
-
-
+VIEW(floor3D)
 
 
 
