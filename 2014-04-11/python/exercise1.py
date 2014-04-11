@@ -109,7 +109,6 @@ building = STRUCT([floor0, T(3)([9.93])(floor0), T(3)([9.93+8.83])(floor0), T(3)
 two_and_a_half_model = building
 
 
-#exercise2
 
 #creo arco
 b = CUBOID([4.38,4.04])
@@ -150,7 +149,6 @@ mock_up_3D = STRUCT([north,two_and_a_half_model_r,south, east, west])
 
 
 
-#exercise 3
 main_cube = CUBOID([53,60,53])
 
 fila_1_solid = extrude(fila_1_t, 53)
@@ -193,19 +191,18 @@ interno3D_ex = extrude(interno3D, 60)
 interno3D_ex_col = COLOR(GRAY)(interno3D_ex)
 interno3D_col_t = T([1,2])([(1.35)+(4.38),(1.35)+(4.38)])(interno3D_ex_col)
 
-cubo_ext = (CUBOID([38.84,38.84,60]))
-cubo_int = T([1,2])([.45,.45])(CUBOID([37.94,37.94,60]))
+cubo_ext = (CUBOID([41.54,41.54,60]))
+cubo_int = T([1,2])([1.35,1.35])(CUBOID([38.84,38.84,60]))
 
 celeste = rgb([93,155,155])
 
-guscio_interno =COLOR(celeste) (T([1,2])([7.08,7.08])(DIFFERENCE([cubo_ext,cubo_int])))
+guscio_interno =COLOR(celeste) (T([1,2])([5.73,5.73])(DIFFERENCE([cubo_ext,cubo_int])))
 
 
 
 floor0_3D = STRUCT([diff,  COLOR(BLACK)(quadrati_lato1), COLOR(BLACK)(quadrati_lato2), COLOR(BLACK)(quadrati_lato3_t), COLOR(BLACK)(quadrati_lato4_t), COLOR(BLACK)(quadrati_latoInt1_t), COLOR(BLACK)(quadrati_latoInt2_t), COLOR(BLACK)(quadrati_latoInt3_t), COLOR(BLACK)(quadrati_latoInt4_t)])
 
 
-#VIEW(generic_floor)
 
 
 #floor1_3D
@@ -225,14 +222,6 @@ floor1_3D = STRUCT([appo2,appo])
 floor3D = STRUCT([guscio_interno, interno3D_col_t,floor0_3D, T(3)([9.93])(floor0_3D), T(3)([9.93+8.83])(floor0_3D), T(3)([9.93+(8.83*2)])(floor0_3D), T(3)([9.93+(8.83*3)])(floor0_3D), T(3)([9.93+(8.83*4)])(floor0_3D), T(3)([9.93+(8.83*4)+(14.72)])(floor1_3D)])
 
 VIEW(floor3D)
-
-
-
-
-
-
-
-
 
 
 
