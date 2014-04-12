@@ -318,5 +318,18 @@ palazzo3 = T([1,2,3])([53+13.5+10,-70,-6])(palazzo3)
 palazzo4 = CUBOID([40,40,20])
 palazzo4 = T([1,2,3])([196.5,71.5,-6])(palazzo4)
 
+#palazzo5
+palazzo5 = CUBOID([20,60,25])
+palazzo5 = T([1,2,3])([-10,-13.5-80,-6])(palazzo5)
 
-VIEW(STRUCT([modello3D, basamento1, basamento2, base_dx, base_sx, scale1,scale2_t, palazzo1, palazzo2, palazzo3, palazzo4]))
+#palazzo6
+palazzo6 = CUBOID([40,20,15])
+palazzo6 = T([1,2,3])([230,-13.5-20,-6])(palazzo6)
+
+#palazzo7
+palazzo7 = CUBOID([20,60,20])
+palazzo7 = T([1,2,3])([196.5,111.5,-6])(palazzo7)
+
+
+
+VIEW(STRUCT([modello3D, basamento1, basamento2, base_dx, base_sx, scale1,scale2_t, palazzo1, palazzo2, palazzo3, palazzo4, palazzo5, palazzo6, palazzo7]))
