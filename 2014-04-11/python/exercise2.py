@@ -221,7 +221,6 @@ floor1_3D = STRUCT([appo2,appo])
 
 floor3D = STRUCT([guscio_interno, interno3D_col_t,floor0_3D, T(3)([9.93])(floor0_3D), T(3)([9.93+8.83])(floor0_3D), T(3)([9.93+(8.83*2)])(floor0_3D), T(3)([9.93+(8.83*3)])(floor0_3D), T(3)([9.93+(8.83*4)])(floor0_3D), T(3)([9.93+(8.83*4)+(14.72)])(floor1_3D)])
 floor3D_r = R([2,3])(-PI/2)(floor3D)
-VIEW(floor3D_r)
 
 
 
@@ -264,6 +263,7 @@ pareti3D = STRUCT([north,south, east, west,guscio_interno_2, pareti_tetto_trasl]
 
 VIEW(pareti3D)
 #non ho potuto utilizzare DIFFERENCE al posto di STRUCT poiche' avrebbe impoegato un tempo molto alto per produrre la struttura anche se il risultato sarebbe stato migliore
+
 
 
 
