@@ -301,35 +301,50 @@ rampa2 = STRUCT(NN(22)(([gradino3D,T([1,3])([max,min/2])])))
 scale2 = R([1,2])(PI)(rampa2)
 scale2_t = T([1,2,3])([79,80-13.5,-7])(scale2)
 
+grigio_chiaro =  rgb([210,210,210])
+
 #palazzo1
 palazzo1 = CUBOID([80,20,35])
 palazzo1 = T([1,2,3])([13.5+53+35,-13.5-20,-6])(palazzo1)
+palazzo1 = COLOR(grigio_chiaro)(palazzo1)
 
 #palazzo2
 palazzo2 = CUBOID([80,20,35])
 palazzo2 = T([1,2,3])([13.5+53+35,53+13.5,-6])(palazzo2)
-
+palazzo2 = COLOR(grigio_chiaro)(palazzo2)
 
 #palazzo3
 palazzo3 = CUBOID([150,20,40])
 palazzo3 = T([1,2,3])([53+13.5+10,-70,-6])(palazzo3)
+palazzo3 = COLOR(grigio_chiaro)(palazzo3)
 
 #palazzo4
+grigio =  rgb([147,147,147])
 palazzo4 = CUBOID([40,40,20])
 palazzo4 = T([1,2,3])([196.5,71.5,-6])(palazzo4)
+palazzo4 = COLOR(grigio)(palazzo4)
 
 #palazzo5
+rosso_pastello = rgb([210, 103, 82])
 palazzo5 = CUBOID([20,60,25])
 palazzo5 = T([1,2,3])([-10,-13.5-80,-6])(palazzo5)
+palazzo5 = COLOR(rosso_pastello)(palazzo5)
 
 #palazzo6
 palazzo6 = CUBOID([40,20,15])
 palazzo6 = T([1,2,3])([230,-13.5-20,-6])(palazzo6)
+palazzo6 = COLOR(grigio_chiaro)(palazzo6)
 
 #palazzo7
 palazzo7 = CUBOID([20,60,20])
 palazzo7 = T([1,2,3])([196.5,111.5,-6])(palazzo7)
+palazzo7 = COLOR(grigio)(palazzo7)
 
 
 
-VIEW(STRUCT([modello3D, basamento1, basamento2, base_dx, base_sx, scale1,scale2_t, palazzo1, palazzo2, palazzo3, palazzo4, palazzo5, palazzo6, palazzo7]))
+
+small_area = STRUCT([modello3D, basamento1, basamento2, base_dx, base_sx, scale1,scale2_t, palazzo1, palazzo2, palazzo3, palazzo4, palazzo5, palazzo6, palazzo7])
+
+
+VIEW(small_area)
+
