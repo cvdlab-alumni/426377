@@ -115,7 +115,7 @@ b = CUBOID([4.38,4.04])
 s = T([1,2])([2.19,4.04])(semicircle(2.21))
 arco = (STRUCT([b,s])) 
 
-#muro nord
+#mura
 
 fila_1 = STRUCT( [arco, STRUCT(NN(8)([traslateVector( [1], [1.35+4.38 ]),arco])) ])
 fila_1_t = COLOR(BLACK)(T([1])([1.35])(fila_1))
@@ -135,9 +135,9 @@ floor_5 = STRUCT([c3,fila_1_t])
 
 north = STRUCT([floor_0, T([2])([9.93])(floor_1),T([2])([9.93+8.83])(floor_2),T([2])([9.93+(8.83*2)])(floor_3),T([2])([9.93+(8.83*3)])(floor_4),T([2])([9.93+(8.83*4)])(floor_5)]) 
 
-south =T([3])([-53])( STRUCT([floor_0, T([2])([9.93])(floor_1),T([2])([9.93+8.83])(floor_2),T([2])([9.93+(8.83*2)])(floor_3),T([2])([9.93+(8.83*3)])(floor_4),T([2])([9.93+(8.83*4)])(floor_5)]) )
+south =T([3])([-53])( north)
 
-east = R([1,3])(-PI/2)(STRUCT([floor_0, T([2])([9.93])(floor_1),T([2])([9.93+8.83])(floor_2),T([2])([9.93+(8.83*2)])(floor_3),T([2])([9.93+(8.83*3)])(floor_4),T([2])([9.93+(8.83*4)])(floor_5)]) )
+east = R([1,3])(-PI/2)(north )
 
 west = T([1])([53])(east)
 
@@ -194,7 +194,7 @@ interno3D_col_t = T([1,2])([(1.35)+(4.38),(1.35)+(4.38)])(interno3D_ex_col)
 cubo_ext = (CUBOID([41.54,41.54,60]))
 cubo_int = T([1,2])([1.35,1.35])(CUBOID([38.84,38.84,60]))
 
-celeste = rgb([176,224,230])
+celeste = rgb([176,224,230,0.1])
 
 guscio_interno =COLOR(celeste) (T([1,2])([5.73,5.73])(DIFFERENCE([cubo_ext,cubo_int])))
 
@@ -218,12 +218,51 @@ floor1_3D = STRUCT([appo2,appo])
 #ho i piani generici floor0 e tetto floor1
 
 
-floor3D = STRUCT([guscio_interno, interno3D_col_t,floor0_3D, T(3)([9.93])(floor0_3D), 
-	T(3)([9.93+8.83])(floor0_3D), T(3)([9.93+(8.83*2)])(floor0_3D), T(3)([9.93+(8.83*3)])(floor0_3D),
-	 T(3)([9.93+(8.83*4)])(floor0_3D)])
 
-VIEW(floor3D)
+floor3D = STRUCT([guscio_interno, interno3D_col_t,floor0_3D, T(3)([9.93])(floor0_3D), T(3)([9.93+8.83])(floor0_3D), T(3)([9.93+(8.83*2)])(floor0_3D), T(3)([9.93+(8.83*3)])(floor0_3D), T(3)([9.93+(8.83*4)])(floor0_3D), T(3)([9.93+(8.83*4)+(14.72)])(floor1_3D)])
 
+
+
+
+
+#exercise2
+
+fila_1 = STRUCT([arco, STRUCT(NN(8)([traslateVector( [1], [1.35+4.38 ]),arco])) ])   
+fila_1_t = COLOR(BLACK)((extrude((T([1])([1.35])(fila_1)),5.73)))
+
+
+
+c1 = CUBOID([53,9.93,5.73])
+c2 = CUBOID([53,8.83,5.73])
+c3 = CUBOID([53,14.72,5.73])
+
+floor_0 = STRUCT([c1, fila_1_t])
+floor_1 = STRUCT([c2,fila_1_t]) 
+floor_2 = STRUCT([c2,fila_1_t])
+floor_3 = STRUCT([c2,fila_1_t])
+floor_4 = STRUCT([c2,fila_1_t])
+floor_5 = STRUCT([c3,fila_1_t])
+
+parete = STRUCT([floor_0, T([2])([9.93])(floor_1),T([2])([9.93+8.83])(floor_2),T([2])([9.93+(8.83*2)])(floor_3),T([2])([9.93+(8.83*3)])(floor_4),T([2])([9.93+(8.83*4)])(floor_5)])
+
+north = T([3])([-5.73])(parete) 
+
+south =T([3])([-53])(parete)
+
+east = R([1,3])(-PI/2)(parete )
+
+west = T([1])([53-5.73])(east)     
+
+guscio_interno_2 = R([2,3])(-PI/2)(guscio_interno) 
+
+pareti_tetto_ext = CUBOID([41.54,41.54,2.57])
+pareti_tetto_int = T([1,2])([1.35,1.35])(CUBOID([38.84,38.84,2.57]))
+pareti_tetto_trasl = COLOR(GRAY)(R([2,3])(-PI/2)(T([1,2,3])([5.73,5.73,60])(DIFFERENCE([pareti_tetto_ext,pareti_tetto_int]))))
+
+pareti3D = STRUCT([north,south, east, west,guscio_interno_2, pareti_tetto_trasl])
+
+VIEW(pareti3D)
+#non ho potuto utilizzare DIFFERENCE al posto di STRUCT poiche' avrebbe impoegato un tempo molto alto per produrre la struttura anche se il risultato sarebbe stato migliore
 
 
 

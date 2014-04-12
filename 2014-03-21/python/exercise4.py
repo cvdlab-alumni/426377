@@ -101,7 +101,7 @@ b = CUBOID([4.38,4.04])
 s = T([1,2])([2.19,4.04])(semicircle(2.21))
 arco = (STRUCT([b,s])) 
 
-#muro nord
+#mura
 
 fila_1 = STRUCT( [arco, STRUCT(NN(8)([traslateVector( [1], [1.35+4.38 ]),arco])) ])
 fila_1_t = COLOR(BLACK)(T([1])([1.35])(fila_1))
@@ -121,9 +121,9 @@ floor_5 = STRUCT([c3,fila_1_t])
 
 north = STRUCT([floor_0, T([2])([9.93])(floor_1),T([2])([9.93+8.83])(floor_2),T([2])([9.93+(8.83*2)])(floor_3),T([2])([9.93+(8.83*3)])(floor_4),T([2])([9.93+(8.83*4)])(floor_5)]) 
 
-south =T([3])([-53])( STRUCT([floor_0, T([2])([9.93])(floor_1),T([2])([9.93+8.83])(floor_2),T([2])([9.93+(8.83*2)])(floor_3),T([2])([9.93+(8.83*3)])(floor_4),T([2])([9.93+(8.83*4)])(floor_5)]) )
+south =T([3])([-53])(north)
 
-east = R([1,3])(-PI/2)(STRUCT([floor_0, T([2])([9.93])(floor_1),T([2])([9.93+8.83])(floor_2),T([2])([9.93+(8.83*2)])(floor_3),T([2])([9.93+(8.83*3)])(floor_4),T([2])([9.93+(8.83*4)])(floor_5)]) )
+east = R([1,3])(-PI/2)(north)
 
 west = T([1])([53])(east)
 
