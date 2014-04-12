@@ -456,7 +456,3 @@ lampioni2 = T([1,2,3])([53+13.5+30+5, 53-2.5 ,-6])(lampioni2)
 urban_fitting = STRUCT([small_area,aiuola1,aiuola2,aiuola3, aiuola4, aiuola5, alberi1, alberi2, bush, fontana1, fontana2 ,pennone, lampioni1, lampioni2])
 
 VIEW(urban_fitting)
-
-
-
-
