@@ -165,7 +165,7 @@ stair = R([2,3])(-PI/2)(T([1,2,3])([10,(5*1.35)+(4*4.38)+3,0])(ramp))
 
 mock_up_3D = STRUCT([mock_up_3D, stair])
 
-VIEW(solid_model_3D)
+VIEW(mock_up_3D)
 
 
 
