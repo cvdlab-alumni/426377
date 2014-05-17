@@ -3,7 +3,7 @@ from pyplasm import *
 from scipy import *
 import os,sys
 """ import modules from larcc/lib """
-sys.path.insert(0, '/home/matteo/NEW_Grafica Computazionale/lar-cc/lib/py/')
+sys.path.insert(0, 'lib/py/')
 from lar2psm import *
 from simplexn import *
 from larcc import *

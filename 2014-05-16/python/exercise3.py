@@ -17,14 +17,10 @@ def visualizza_celle(master):
 	hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2) 
 	return VIEW(hpc)
 
-'''def rimuovi_celle(toRemove,master):
+def rimuovi_celle(toRemove,master):
 	master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
+	return
 
-	print "======V========="
-	print V
-	print "===CV========="
-	print CV
-	visualizza_celle(master)'''
 
 def merge_celle(toMerge,master,diagrams):
 	if (len(toMerge) != len(diagrams)):
@@ -40,6 +36,7 @@ def merge_celle(toMerge,master,diagrams):
 
 def function(toMerge,toRemove,master,diagrams):
 	master = merge_celle(toMerge,master,diagrams)
+	master = rimuovi_celle(toMerge,master)
 	#visualizza_celle(master)
 	return
 
@@ -47,36 +44,7 @@ def function(toMerge,toRemove,master,diagrams):
 master = assemblyDiagramInit([2,2,2])([[2,2],[2,2],[2,2]])
 V,CV = master
 
-#visualizza_celle(master)
-
-#rimuovi_celle([2],master)
-#visualizza_celle((master))
-
-toMerge = []
-diagrams = []
-
-toMerge1 = 7
-diagram1 = assemblyDiagramInit([2,2,2])([[2,2,2],[2,2,2],[2,2,2]])
-toMerge.append(toMerge1)
-diagrams.append(diagram1)
-
-toMerge2 = 1
-diagram2 = assemblyDiagramInit([2,2,2])([[2,2,2],[2,2,2],[2,2,2]])
-toMerge.append(toMerge2)
-diagrams.append(diagram2)
-
-
-
-print toMerge
-print diagrams
-
-visualizza_celle(master)
-function(toMerge,[],master,diagrams)
 
 
 
 
-'''hpc = SKEL_1(STRUCT(MKPOLS(master)))
-hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
-toRemove = []
-master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]'''

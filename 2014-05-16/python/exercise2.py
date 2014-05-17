@@ -194,6 +194,7 @@ building = diagram2cell(master,building,0)
 
 building = diagram2cell(master,building,0)
 
+#DRAW(building)
 #facciata palazzo
 master1 = assemblyDiagramInit([1,3,15])([[.2],[2,2,2],[2,1,.2,1.3,1,.7,.2,1.3,1,.7,.2,1.3,1,.7,.2]])
 V,CV = master1
