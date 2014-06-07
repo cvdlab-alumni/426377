@@ -28,10 +28,7 @@
   <script type="text/javascript" src="/home/matteo/NEW_Grafica Computazionale/threejs-crumbs/examples/assets/fonts/bitstream_vera_sans_mono_roman.typeface.js"></script> 
   <script src="/home/matteo/NEW_Grafica Computazionale/threejs-crumbs/examples/assets/libs/tween.min.js">
   </script>
-  <script src="/home/matteo/NEW_Grafica Computazionale/threejs-crumbs/examples/assets/libs/keyframe.js">
-  </script>
   
-
     <!-- Javascript code that runs our Three.js examples --> 
     <script>
       // once everything is loaded, we run our Three.js stuff.
@@ -50,7 +47,6 @@
 
           // add axis helper
         var axisHelper = new THREE.AxisHelper(3);
-        //axisHelper.position.set(-10,0,0);
         axisHelper.visible = false;
         scene.add(axisHelper);
 
@@ -59,7 +55,7 @@
 
 
       // position and point the camera to the center of the scene
-        camera.position.set(0,160,40);
+        camera.position.set(0,150,40);
         camera.up = new THREE.Vector3(0,0,1);
         camera.lookAt(scene.position);
 
@@ -197,11 +193,8 @@
           
 
           light = new THREE.SpotLight( 0xffffff,20,40,Math.PI/2);
-          //light.position.set(60,50,40);
           light.castShadow = true;
           light.target = hook;
-          //joint3.hook.add(light);
-          light.castShadow = true;
           light.shadowCameraNear = 2;
           light.shadowCameraFar = 300;
           light.shadowCameraFov = 300;
@@ -211,9 +204,6 @@
           light.shadow;
 
           sphereBulb.add(light);
-
-          
-          //light.target = hook;
 
           
           joint.sphere = sphere;
@@ -239,9 +229,6 @@
         lamp.castShadow = true;
 
         
-        
-
-
         lamp.rotation.x = (Math.PI/2);
         lamp.position.set(-12,0,2+altezzaTrattino);
         scene.add(lamp);
@@ -258,6 +245,8 @@
           var textGeom = new THREE.TextGeometry('CVD    lab');
           var text1 = new THREE.Mesh( textGeom, material );
           text1.castShadow = true;
+          text1.receiveShadow = true;
+
           text1.position.x = 57;
           text1.position.y = 0;
           text1.rotation.x = Math.PI/2;
@@ -278,6 +267,8 @@
           var textGeom = new THREE.TextGeometry( '-');
           var text2 = new THREE.Mesh( textGeom, material );
           text2.castShadow = true;
+          text2.receiveShadow = true;
+
         
           text2.position.x = -9;
           text2.position.y = 0;
@@ -300,7 +291,6 @@
         scene.add(lamp);
 
 
-        
 
         // add the output of the renderer to the html element
         $('body').append(renderer.domElement);
@@ -345,41 +335,6 @@
           .delay(1000)
           .chain(lampTweenRotationBack)
           .start();
-
-
-
-        
-       
-
-
-        /* //define animations
-        var animator = null;
-        var duration = .5; // sec
-        var loopAnimation = false;
-
-        function initAnimator() {
-          animator = new KF.KeyFrameAnimator;
-          animator.init({ 
-            interps:
-              [
-                { 
-                  keys:[0, .2,.5 ,1], 
-                  values:[
-                    { z : 2+altezzaTrattino },
-                    { z : 16  },
-                    { z : 21},
-                    { z : 30  }
-                  ],
-                  target:lamp.position
-                },
-              ],
-            loop: loopAnimation,
-            duration: duration * 1000
-          });
-        }
-
-        initAnimator();*/
-
 
 
 
@@ -438,20 +393,6 @@
 
 
 
-
-
-      function createMesh(geom) {
-        // assign two materials
-        // var meshMaterial = new THREE.MeshLambertMaterial({color: 0xff5555});
-        // var meshMaterial = new THREE.MeshNormalMaterial();
-        var meshMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x9999CC, shininess: 100, metal: true});
-        meshMaterial.castShadow = true;
-        // meshMaterial.side=THREE.DoubleSide;
-        // create a multimaterial
-        var plane = THREE.SceneUtils.createMultiMaterialObject(geom, [meshMaterial]);
-        return plane;
-      }
-
       function defaultValues(){
         joint2.rotation.y = 4;
         joint2.sphere.rotation.x = 1;
@@ -462,7 +403,6 @@
       
         defaultValues();
         render();
-        //animator.start();
 
 
         axis_control.onChange(function (value) {
@@ -488,15 +428,10 @@
           torusKnot.rotation.y += controls.RotationTorusSpeed;
           torusKnot.rotation.z += controls.RotationTorusSpeed;
           
-          //trackballControls.update();
+          trackballControls.update();
           TWEEN.update();
-          //KF.update();
           requestAnimationFrame(render);
           renderer.render(scene, camera);
-
-
-          //spotLightHelper.update();
-
 
         }
 
