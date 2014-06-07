@@ -51,6 +51,7 @@
           // add axis helper
         var axisHelper = new THREE.AxisHelper(3);
         //axisHelper.position.set(-10,0,0);
+        axisHelper.visible = false;
         scene.add(axisHelper);
 
         // create trackball controls
@@ -58,7 +59,7 @@
 
 
       // position and point the camera to the center of the scene
-        camera.position.set(-70,80,40);
+        camera.position.set(0,160,40);
         camera.up = new THREE.Vector3(0,0,1);
         camera.lookAt(scene.position);
 
@@ -81,7 +82,7 @@
         renderer.shadowMapEnabled = true;
 
         //Create the plane 
-        var geometry = new THREE.PlaneGeometry( 180, 80, 20,20);
+        var geometry = new THREE.PlaneGeometry( 180, 80, 60,60);
         var material = new THREE.MeshLambertMaterial( {color: 0x99CCFF, side: THREE.DoubleSide} );
         var plane = new THREE.Mesh( geometry, material );
         plane.receiveShadow = true;
@@ -92,7 +93,7 @@
         var geometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
         var material = new THREE.MeshPhongMaterial( {specular: 0xffffff, color: 0x9999CC, shininess: 100, metal: true } );
         var torusKnot = new THREE.Mesh( geometry, material );
-        torusKnot.position.set(85,0,10);
+        torusKnot.position.set(85,0,15);
         torusKnot.castShadow = true;
         scene.add( torusKnot );
 
@@ -187,15 +188,15 @@
           var hook = new THREE.Object3D();
           hook.position.set(0, -20,0 );
           sphereBulb.add(hook);
-          //oggetto che rappresenta hook
+          /*//oggetto che rappresenta hook
           var geometry = new THREE.SphereGeometry( .2 );
           var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
           var sphere2 = new THREE.Mesh( geometry, material );
           sphere2.position = new THREE.Vector3(0, -20,0 );
-          sphereBulb.add( sphere2 );
+          sphereBulb.add( sphere2 );*/
           
 
-          light = new THREE.SpotLight( 0xffffff,20,40,Math.PI/2 );
+          light = new THREE.SpotLight( 0xffffff,20,40,Math.PI/2);
           //light.position.set(60,50,40);
           light.castShadow = true;
           light.target = hook;
@@ -237,9 +238,7 @@
         lamp.add(joint1);
         lamp.castShadow = true;
 
-        spotLightHelper = new THREE.SpotLightHelper(joint3.light);
-        scene.add(spotLightHelper);
-
+        
         
 
 
@@ -250,7 +249,8 @@
 
         //add the text
         var text = new THREE.Object3D()
-//"CVD    lab"
+        
+
         var text1;
         console.log(THREE.FontUtils.faces);
 
@@ -266,7 +266,6 @@
           text1.scale.x = scaleFactor;
           text1.scale.y = scaleFactor;
           text1.scale.z = scaleFactor;
-          //text1.castShadow = true;
 
           text.add(text1);
 
@@ -288,7 +287,6 @@
           text2.scale.x = scaleFactor;
           text2.scale.y = scaleFactor;
           text2.scale.z = scaleFactor;
-          //text2.castShadow = true;
 
           text.add(text2);
           text.castShadow = true;
@@ -395,11 +393,10 @@
         this.RotationGamma = 4.4;
         this.RotationDelta = 1.0;
         this.RotationEpsilon = 1.1;
-        this.showAxisHelper = true;
-        this.lightLamp_control = true;
-
-       
-       
+        this.showAxisHelper = false;
+        this.Lamp_onOff = true;
+        this.LightIntensity = 20;
+        this.RotationTorusSpeed = 0.0;
       }
 
       var gui = new dat.GUI();
@@ -426,11 +423,19 @@
           joint3.sphere.rotation.x = e;
       });
 
+      var lightLamp_control = lampFolder.add(controls, 'Lamp_onOff');
+
+      lampFolder.add(controls, 'LightIntensity', 0.1, 50).onChange(function (e) {
+          joint3.light.intensity = e;
+      });
+
       torusKnotFolder = gui.addFolder("TorusKnot");
+
+      torusKnotFolder.add(controls, 'RotationTorusSpeed',0.0,0.2);
 
       var axis_control = gui.add(controls, 'showAxisHelper');
 
-      var lightLamp_control = gui.add(controls, 'Lamp on/off');
+
 
 
 
@@ -468,6 +473,8 @@
        lightLamp_control.onChange(function (value) {
         if (!value)
           joint3.light.intensity = 0.0;
+        else
+          joint3.light.intensity = 20.0;
       });
 
 
@@ -475,14 +482,20 @@
         function render() {
 
           stats.update();
-          trackballControls.update();
+          
+          // rotate the torus around its axes
+          torusKnot.rotation.x += controls.RotationTorusSpeed;
+          torusKnot.rotation.y += controls.RotationTorusSpeed;
+          torusKnot.rotation.z += controls.RotationTorusSpeed;
+          
+          //trackballControls.update();
           TWEEN.update();
-          KF.update();
+          //KF.update();
           requestAnimationFrame(render);
           renderer.render(scene, camera);
 
 
-          spotLightHelper.update();
+          //spotLightHelper.update();
 
 
         }
