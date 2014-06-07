@@ -26,6 +26,10 @@
   <script type="text/javascript" src="/home/matteo/NEW_Grafica Computazionale/threejs-crumbs/examples/assets/fonts/helvetiker_regular.typeface.js"></script> 
   <script type="text/javascript" src="/home/matteo/NEW_Grafica Computazionale/threejs-crumbs/examples/assets/fonts/helvetiker_bold.typeface.js"></script> 
   <script type="text/javascript" src="/home/matteo/NEW_Grafica Computazionale/threejs-crumbs/examples/assets/fonts/bitstream_vera_sans_mono_roman.typeface.js"></script> 
+  <script src="/home/matteo/NEW_Grafica Computazionale/threejs-crumbs/examples/assets/libs/tween.min.js">
+  </script>
+  <script src="/home/matteo/NEW_Grafica Computazionale/threejs-crumbs/examples/assets/libs/keyframe.js">
+  </script>
   
 
     <!-- Javascript code that runs our Three.js examples --> 
@@ -54,24 +58,27 @@
 
 
       // position and point the camera to the center of the scene
-        camera.position.set(-30,40,30);
+        camera.position.set(-70,80,40);
         camera.up = new THREE.Vector3(0,0,1);
         camera.lookAt(scene.position);
 
         // add spotlight for the shadows
         var spotLight = new THREE.SpotLight( 0xffffff );
-        spotLight.position.set(0,100,100);
+        spotLight.position.set(0,150,150);
+        spotLight.castShadow = true;
         scene.add(spotLight);
 
 
         renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMapEnabled = true;
 
         //Create the plane 
-        var geometry = new THREE.PlaneGeometry( 120, 50, 20,20);
-        var material = new THREE.MeshLambertMaterial( {color: 0x9999CC, side: THREE.DoubleSide} );
+        var geometry = new THREE.PlaneGeometry( 140, 50, 20,20);
+        var material = new THREE.MeshLambertMaterial( {color: 0x99CCFF, side: THREE.DoubleSide} );
         var plane = new THREE.Mesh( geometry, material );
         plane.receiveShadow = true;
+        plane.position.set(0,0,-3);
         scene.add( plane );
 
 
@@ -82,6 +89,7 @@
         var geometry = new THREE.CylinderGeometry( 4, 4,1.3, 32 );
         var material = new THREE.MeshPhongMaterial( {color: 0xdcdcdc} );
         var cylinder = new THREE.Mesh( geometry, material );
+        cylinder.castShadow = true;
         cylinder.position.set(0,-1.25,0)
         lamp.add( cylinder );
 
@@ -93,12 +101,6 @@
           sphere.castShadow = true;
           joint.add(sphere);
 
-          /*var cylinderGeometry = new THREE.CylinderGeometry(radius,radius,height,32,32);
-          var cylinderMaterial = new THREE.MeshLambertMaterial({color: 0xdcdcdc, shading: THREE.FlatShading});
-          var cylinder = new THREE.Mesh(cylinderGeometry,cylinderMaterial);
-          cylinder.position.set(0, height/2 + radius, 0);
-          cylinder.castShadow = true;
-          sphere.add(cylinder);*/
 
           var cylinder = new THREE.Object3D();
 
@@ -211,6 +213,7 @@
         joint2.hook.add(joint3);
 
         lamp.add(joint1);
+        lamp.castShadow = true;
 
         spotLightHelper = new THREE.SpotLightHelper(joint3.light);
         scene.add(spotLightHelper);
@@ -224,11 +227,13 @@
 
 
         //add the text
+        var text = new THREE.Object3D()
+
         var text1;
         console.log(THREE.FontUtils.faces);
 
-          text1 = createMesh(new THREE.TextGeometry("CVD  lab"));
-          text1.position.x = 50;
+          text1 = createMesh(new THREE.TextGeometry("CVD    lab"));
+          text1.position.x = 58;
           text1.position.y = 0;
           text1.rotation.x = Math.PI/2;
           text1.rotation.y = Math.PI;
@@ -238,7 +243,7 @@
           text1.scale.z = scaleFactor;
           text1.castShadow = true;
 
-          scene.add(text1);
+          text.add(text1);
 
 
 
@@ -256,7 +261,9 @@
           text2.scale.z = scaleFactor;
           text2.castShadow = true;
 
-          scene.add(text2);
+          text.add(text2);
+
+          scene.add(text);
 
 
         var altezzaTrattino = 8.45; 
@@ -264,14 +271,89 @@
         scene.add(lamp);
 
 
-
-        //lamp.position.set();
-
-
-
+        
 
         // add the output of the renderer to the html element
         $('body').append(renderer.domElement);
+
+        
+
+        var lampTweenBack = new TWEEN.Tween(lamp.position)
+          .to({x: -12, y: 5, z: 2+altezzaTrattino}, 2000)
+          .easing(TWEEN.Easing.Bounce.Out);
+
+        var lampTween = new TWEEN.Tween(lamp.position)
+          .to({x: -12, y: 5, z: 30}, 3000)
+          .easing(TWEEN.Easing.Bounce.In)
+          .delay(1000)
+          .chain(lampTweenBack)
+          .start();
+
+
+        
+        var lampScaleBack = new TWEEN.Tween(lamp.scale)
+          .to({x: 1, y: 1, z: 1}, 2000)
+          .easing(TWEEN.Easing.Bounce.Out);
+
+
+        var h = 8;
+        var dz = 3;
+        var lampScale = new TWEEN.Tween(lamp.scale)
+          .to({x: 1, y: 1-dz/h, z: 1}, 3000)
+          .easing(TWEEN.Easing.Bounce.In)
+          .delay(1000)
+          .chain(lampScaleBack)
+          .start();
+
+
+        var lampTweenRotationBack = new TWEEN.Tween(lamp.rotation)
+          .to({x: Math.PI/2, y: 0, z:0}, 2000)
+          .easing(TWEEN.Easing.Bounce.Out);
+
+        var lampTweenRotation = new TWEEN.Tween(lamp.rotation)
+          .to({x: 0, y: 2*Math.PI, z:0}, 3000)
+          .easing(TWEEN.Easing.Bounce.In)
+          .delay(1000)
+          .chain(lampTweenRotationBack)
+          .start();
+
+
+
+        
+       
+
+
+        /* //define animations
+        var animator = null;
+        var duration = .5; // sec
+        var loopAnimation = false;
+
+        function initAnimator() {
+          animator = new KF.KeyFrameAnimator;
+          animator.init({ 
+            interps:
+              [
+                { 
+                  keys:[0, .2,.5 ,1], 
+                  values:[
+                    { z : 2+altezzaTrattino },
+                    { z : 16  },
+                    { z : 21},
+                    { z : 30  }
+                  ],
+                  target:lamp.position
+                },
+              ],
+            loop: loopAnimation,
+            duration: duration * 1000
+          });
+        }
+
+        initAnimator();*/
+
+
+
+
 
         // call the render function
         var step = 0;
@@ -321,17 +403,26 @@
         return plane;
       }
 
+      function defaultValues(){
+        joint2.rotation.y = 4;
+        joint2.sphere.rotation.x = 1;
+        joint3.sphere.rotation.x = 1.1;
+
+      }
       
       
-      
-        
+        defaultValues();
         render();
+        //animator.start();
 
 
 
         function render() {
+
           stats.update();
           trackballControls.update();
+          TWEEN.update();
+          KF.update();
           requestAnimationFrame(render);
           renderer.render(scene, camera);
 
