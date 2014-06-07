@@ -50,7 +50,7 @@
 
           // add axis helper
         var axisHelper = new THREE.AxisHelper(3);
-        axisHelper.position.set(-10,0,0);
+        //axisHelper.position.set(-10,0,0);
         scene.add(axisHelper);
 
         // create trackball controls
@@ -64,8 +64,15 @@
 
         // add spotlight for the shadows
         var spotLight = new THREE.SpotLight( 0xffffff );
-        spotLight.position.set(0,150,150);
+        spotLight.position.set(0,200,200);
         spotLight.castShadow = true;
+        spotLight.shadowCameraNear = 2;
+        spotLight.shadowCameraFar = 400;
+        spotLight.shadowCameraFov = 400;
+        spotLight.shadowDarkness = 0.5;
+        spotLight.shadowMapWidth = 1024;
+        spotLight.shadowMapHeight = 1024;
+        spotLight.shadow;
         scene.add(spotLight);
 
 
@@ -74,20 +81,27 @@
         renderer.shadowMapEnabled = true;
 
         //Create the plane 
-        var geometry = new THREE.PlaneGeometry( 140, 50, 20,20);
+        var geometry = new THREE.PlaneGeometry( 180, 80, 20,20);
         var material = new THREE.MeshLambertMaterial( {color: 0x99CCFF, side: THREE.DoubleSide} );
         var plane = new THREE.Mesh( geometry, material );
         plane.receiveShadow = true;
-        plane.position.set(0,0,-3);
+        plane.position.set(20,0,-3);
         scene.add( plane );
 
+
+        var geometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
+        var material = new THREE.MeshPhongMaterial( {specular: 0xffffff, color: 0x9999CC, shininess: 100, metal: true } );
+        var torusKnot = new THREE.Mesh( geometry, material );
+        torusKnot.position.set(85,0,10);
+        torusKnot.castShadow = true;
+        scene.add( torusKnot );
 
         lamp = new THREE.Object3D();
 
 
         //create the cylinder basis
         var geometry = new THREE.CylinderGeometry( 4, 4,1.3, 32 );
-        var material = new THREE.MeshPhongMaterial( {color: 0xdcdcdc} );
+        var material = new THREE.MeshPhongMaterial( {color: 0xdcdcdc, shininess: 100, metal: true} );
         var cylinder = new THREE.Mesh( geometry, material );
         cylinder.castShadow = true;
         cylinder.position.set(0,-1.25,0)
@@ -96,7 +110,7 @@
         function mkJointArm(radius, height){
           var joint =new THREE.Object3D();
           var sphereGeometry = new THREE.SphereGeometry(radius,32,32);
-          var sphereMaterial = new THREE.MeshLambertMaterial({color: 0xdcdcdc, shading: THREE.FlatShading});
+          var sphereMaterial = new THREE.MeshPhongMaterial({color: 0xdcdcdc, shading: THREE.FlatShading, shininess: 100, metal: true});
           var sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
           sphere.castShadow = true;
           joint.add(sphere);
@@ -105,21 +119,21 @@
           var cylinder = new THREE.Object3D();
 
           var cylinderGeometry = new THREE.CylinderGeometry(.2,.2,height,32,32);
-          var cylinderMaterial = new THREE.MeshLambertMaterial({color: 0xdcdcdc, shading: THREE.FlatShading});
+          var cylinderMaterial = new THREE.MeshPhongMaterial({color: 0xdcdcdc, shading: THREE.FlatShading, shininess: 100, metal: true});
           var cylinderL = new THREE.Mesh(cylinderGeometry,cylinderMaterial);
           cylinderL.position.set(-.5, 0, -.5);
           cylinderL.castShadow = true;
           cylinder.add(cylinderL);
 
           var cylinderGeometry = new THREE.CylinderGeometry(.2,.2,height,32,32);
-          var cylinderMaterial = new THREE.MeshLambertMaterial({color: 0xdcdcdc, shading: THREE.FlatShading});
+          var cylinderMaterial = new THREE.MeshPhongMaterial({color: 0xdcdcdc, shading: THREE.FlatShading, shininess: 100, metal: true});
           var cylinderR = new THREE.Mesh(cylinderGeometry,cylinderMaterial);
           cylinderR.position.set(+.5, 0, -.5);
           cylinderR.castShadow = true;
           cylinder.add(cylinderR);
 
           var cylinderGeometry = new THREE.CylinderGeometry(.2,.2,height,32,32);
-          var cylinderMaterial = new THREE.MeshLambertMaterial({color: 0xdcdcdc, shading: THREE.FlatShading});
+          var cylinderMaterial = new THREE.MeshPhongMaterial({color: 0xdcdcdc, shading: THREE.FlatShading, shininess: 100, metal: true});
           var cylinderC = new THREE.Mesh(cylinderGeometry,cylinderMaterial);
           cylinderC.position.set(0, 0, .7);
           cylinderC.castShadow = true;
@@ -146,14 +160,14 @@
         function mkJointLamp(radiusLamp, radiusBase){
           var joint =new THREE.Object3D();
           var sphereGeometry = new THREE.SphereGeometry(radiusBase,32,32);
-          var sphereMaterial = new THREE.MeshLambertMaterial({color: 0xdcdcdc, shading: THREE.FlatShading});
+          var sphereMaterial = new THREE.MeshPhongMaterial({color: 0xdcdcdc, shading: THREE.FlatShading, shininess: 100, metal: true});
           var sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
           sphere.castShadow = true;
           joint.add(sphere);
 
 
           var sphereLampGeometry = new THREE.SphereGeometry(radiusLamp,32,32,Math.PI,Math.PI,3*Math.PI/2);
-          var sphereLampMaterial = new THREE.MeshLambertMaterial({color: 0xdcdcdc, shading: THREE.FlatShading});
+          var sphereLampMaterial = new THREE.MeshPhongMaterial({color: 0xdcdcdc, shading: THREE.FlatShading, shininess: 100, metal: true});
           var sphereLamp = new THREE.Mesh(sphereLampGeometry,sphereLampMaterial);
           sphereLamp.position.set(0, radiusLamp+radiusBase, 0);
           sphereLamp.material.side = THREE.DoubleSide;
@@ -162,7 +176,7 @@
           sphere.add(sphereLamp);
 
           var sphereBulbGeometry = new THREE.SphereGeometry(1,32,32);
-          var sphereBulbMaterial = new THREE.MeshLambertMaterial({color: 0xFFFF00, shading: THREE.FlatShading});
+          var sphereBulbMaterial = new THREE.MeshPhongMaterial({color: 0xFFFF00, shading: THREE.FlatShading, shininess: 100, metal: true});
           var sphereBulb = new THREE.Mesh(sphereBulbGeometry,sphereBulbMaterial);
           sphereBulb.position.set(0, radiusLamp-1, 0);
           sphereBulb.castShadow = true;
@@ -186,7 +200,15 @@
           light.castShadow = true;
           light.target = hook;
           //joint3.hook.add(light);
-          // add spotlight helper
+          light.castShadow = true;
+          light.shadowCameraNear = 2;
+          light.shadowCameraFar = 300;
+          light.shadowCameraFov = 300;
+          light.shadowDarkness = 0.5;
+          light.shadowMapWidth = 1024;
+          light.shadowMapHeight = 1024;
+          light.shadow;
+
           sphereBulb.add(light);
 
           
@@ -228,12 +250,15 @@
 
         //add the text
         var text = new THREE.Object3D()
-
+//"CVD    lab"
         var text1;
         console.log(THREE.FontUtils.faces);
 
-          text1 = createMesh(new THREE.TextGeometry("CVD    lab"));
-          text1.position.x = 58;
+          var material = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x9999CC, shininess: 100, metal: true});
+          var textGeom = new THREE.TextGeometry('CVD    lab');
+          var text1 = new THREE.Mesh( textGeom, material );
+          text1.castShadow = true;
+          text1.position.x = 57;
           text1.position.y = 0;
           text1.rotation.x = Math.PI/2;
           text1.rotation.y = Math.PI;
@@ -241,7 +266,7 @@
           text1.scale.x = scaleFactor;
           text1.scale.y = scaleFactor;
           text1.scale.z = scaleFactor;
-          text1.castShadow = true;
+          //text1.castShadow = true;
 
           text.add(text1);
 
@@ -250,7 +275,11 @@
         var text2;
         console.log(THREE.FontUtils.faces);
 
-          text2 = createMesh(new THREE.TextGeometry("-"));
+          var material = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x9999CC, shininess: 100, metal: true});
+          var textGeom = new THREE.TextGeometry( '-');
+          var text2 = new THREE.Mesh( textGeom, material );
+          text2.castShadow = true;
+        
           text2.position.x = -9;
           text2.position.y = 0;
           text2.rotation.x = Math.PI/2;
@@ -259,9 +288,11 @@
           text2.scale.x = scaleFactor;
           text2.scale.y = scaleFactor;
           text2.scale.z = scaleFactor;
-          text2.castShadow = true;
+          //text2.castShadow = true;
 
           text.add(text2);
+          text.castShadow = true;
+          text.receiveShadow = true;
 
           scene.add(text);
 
@@ -364,31 +395,43 @@
         this.RotationGamma = 4.4;
         this.RotationDelta = 1.0;
         this.RotationEpsilon = 1.1;
+        this.showAxisHelper = true;
+        this.lightLamp_control = true;
+
        
        
       }
 
       var gui = new dat.GUI();
 
-      gui.add(controls, 'RotationAlpha',0.0,2*Math.PI).onChange(function (e) {
+      lampFolder = gui.addFolder("Lamp");
+
+      lampFolder.add(controls, 'RotationAlpha',0.0,2*Math.PI).onChange(function (e) {
         joint1.rotation.y = e;
       });
 
-      gui.add(controls, 'RotationBeta',0.0,Math.PI/2).onChange(function (e) {
+      lampFolder.add(controls, 'RotationBeta',0.0,Math.PI/2).onChange(function (e) {
           joint1.sphere.rotation.x = e;
       });
 
-      gui.add(controls, 'RotationGamma',0.0,2*Math.PI).onChange(function (e) {
+      lampFolder.add(controls, 'RotationGamma',0.0,2*Math.PI).onChange(function (e) {
         joint2.rotation.y = e;
       });
 
-      gui.add(controls, 'RotationDelta',0.00,Math.PI/2).onChange(function (e) {
+      lampFolder.add(controls, 'RotationDelta',0.00,Math.PI/2).onChange(function (e) {
           joint2.sphere.rotation.x = e;
       });
 
-      gui.add(controls, 'RotationEpsilon',0.0,Math.PI/2).onChange(function (e) {
+      lampFolder.add(controls, 'RotationEpsilon',0.0,Math.PI/2).onChange(function (e) {
           joint3.sphere.rotation.x = e;
       });
+
+      torusKnotFolder = gui.addFolder("TorusKnot");
+
+      var axis_control = gui.add(controls, 'showAxisHelper');
+
+      var lightLamp_control = gui.add(controls, 'Lamp on/off');
+
 
 
 
@@ -397,6 +440,7 @@
         // var meshMaterial = new THREE.MeshLambertMaterial({color: 0xff5555});
         // var meshMaterial = new THREE.MeshNormalMaterial();
         var meshMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x9999CC, shininess: 100, metal: true});
+        meshMaterial.castShadow = true;
         // meshMaterial.side=THREE.DoubleSide;
         // create a multimaterial
         var plane = THREE.SceneUtils.createMultiMaterialObject(geom, [meshMaterial]);
@@ -414,6 +458,17 @@
         defaultValues();
         render();
         //animator.start();
+
+
+        axis_control.onChange(function (value) {
+        axisHelper.visible = value;
+      });
+
+
+       lightLamp_control.onChange(function (value) {
+        if (!value)
+          joint3.light.intensity = 0.0;
+      });
 
 
 
