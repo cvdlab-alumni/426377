@@ -330,7 +330,7 @@
           .easing(TWEEN.Easing.Bounce.Out);
 
         var lampTweenRotation = new TWEEN.Tween(lamp.rotation)
-          .to({x: 0, y: 2*Math.PI, z:0}, 3000)
+          .to({x: 0, y: -2*Math.PI, z:0}, 3000)
           .easing(TWEEN.Easing.Bounce.In)
           .delay(1000)
           .chain(lampTweenRotationBack)
