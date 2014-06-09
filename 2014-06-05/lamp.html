@@ -298,7 +298,7 @@
         
 
         var lampTweenBack = new TWEEN.Tween(lamp.position)
-          .to({x: -12, y: 5, z: 2+altezzaTrattino}, 2000)
+          .to({x: -12, y: 5, z: 1.15}, 2000)//z:2+altezzatrattino ed elimina animazione text2
           .easing(TWEEN.Easing.Bounce.Out);
 
         var lampTween = new TWEEN.Tween(lamp.position)
@@ -335,6 +335,25 @@
           .delay(1000)
           .chain(lampTweenRotationBack)
           .start();
+
+
+
+        /*var charTweenBack = new TWEEN.Tween(text2.position)
+          .to({x: -12, y: 5, z: 0}, 2000)
+          .easing(TWEEN.Easing.Bounce.Out);*/
+
+        var charTween = new TWEEN.Tween(text2.position)
+          .to({x: -9, y: -2, z: -9.3}, 1000)
+          .easing(TWEEN.Easing.Elastic.Out)
+          .delay(4600)
+          .start();
+
+
+        /*var charScaleTween = new TWEEN.Tween(text2.scale)
+          .to({x: 1.4, y: 1.3, z: 0.5}, 1000)
+          .easing(TWEEN.Easing.Elastic.Out)
+          .delay(4600)
+          .start();*/
 
 
 
