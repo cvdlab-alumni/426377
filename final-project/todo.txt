@@ -1,0 +1,11 @@
+todo
+
+tappezzare la casa
+aggiungere perni a porte e finestre
+impostare le bumpmap per le porte
+dare animazioni a porte e finestre (aperture con il click)
+inserire oggetti
+impostare percorso con camera o navigazione libera
+modificare percorso importazione obj su file py
+classe objloader
+luci
