@@ -1,13 +1,17 @@
 function mkDoubleWindow(width,heigh, positionX, positionY,positionZ){
-		var finestra = new THREE.Object3D();
+	var finestra = new THREE.Object3D();
 
 		//anta sx
 		var antaSx = createAnta(width,heigh);
 		finestra.add(antaSx);
 
 		//anta dx
-		var antaDx = createAnta(width,heigh);
-		antaDx.position.x = width/2;
+		var antaDx = new THREE.Object3D();
+		var antaDxShape = createAnta(width,heigh);
+		antaDxShape.position.x = -width/2;
+		antaDx.add(antaDxShape);
+		antaDx.position.x = width;
+
 		finestra.add(antaDx);
 
 
@@ -38,13 +42,13 @@ function mkDoubleWindow(width,heigh, positionX, positionY,positionZ){
 
 	function createAnta(width,heigh){
 
-			var anta = new THREE.Object3D();
+		var anta = new THREE.Object3D();
 
-			var options = {
-            amount: .05,
-            bevelEnabled: false
-            
-          };
+		var options = {
+			amount: .05,
+			bevelEnabled: false
+
+		};
 
 		shape = createMesh(new THREE.ExtrudeGeometry(drawShape(), options));
 		
@@ -57,22 +61,22 @@ function mkDoubleWindow(width,heigh, positionX, positionY,positionZ){
 			rectShape.lineTo( 0, 0 );
 
 			var hole1 = new THREE.Path();
-	        hole1.moveTo(width/20,heigh/10);
-	        hole1.lineTo(9*width/20,heigh/10);
-	        hole1.lineTo(9*width/20,9*heigh/10);
-	        hole1.lineTo(width/20,9*heigh/10);
-	        hole1.lineTo(width/20,heigh/10);
-	        rectShape.holes.push(hole1);
-	        return rectShape;
-	    }
+			hole1.moveTo(width/20,heigh/10);
+			hole1.lineTo(9*width/20,heigh/10);
+			hole1.lineTo(9*width/20,9*heigh/10);
+			hole1.lineTo(width/20,9*heigh/10);
+			hole1.lineTo(width/20,heigh/10);
+			rectShape.holes.push(hole1);
+			return rectShape;
+		}
 
-	    function createMesh(geom) {
-	   
-        var material = new THREE.MeshLambertMaterial( {color: 0xffffff} );
-        var mesh = new THREE.Mesh( geom, material );
+		function createMesh(geom) {
 
-        return mesh;
-      }
+			var material = new THREE.MeshLambertMaterial( {color: 0xffffff, side:THREE.DoubleSide} );
+			var mesh = new THREE.Mesh( geom, material );
+
+			return mesh;
+		}
 
 		anta.add(shape);
 		//vetro anta sx
@@ -91,41 +95,189 @@ function mkDoubleWindow(width,heigh, positionX, positionY,positionZ){
 		return anta ;
 	}
 
-function mkWindows(){
+	function mkWindows(){
 	//FINESTRE
-      var windows = new THREE.Object3D();
+	var windows = new THREE.Object3D();
       //scene.add(windows);
 
       //finestra CAMERA1
-      var win1 = mkDoubleWindow(1.5,1.35,2.65,9,1.45);
+      win1 = mkDoubleWindow(1.5,1.35,2.65,9,1.45);
+      //win1.children[0].rotation.y = Math.PI/2;
+      //win1.children[1].rotation.z = -Math.PI/2;
+      win1.name = "win1";
+      win1.children[0].children[0].interact = function () {
+      	interactDoubleWSX(win1);        
+      }
+      win1.children[0].children[1].interact = function () {
+      	interactDoubleWSX(win1);        
+      }
+      win1.children[1].children[0].children[0].interact = function () {
+      	interactDoubleWDX(win1);        
+      }
+      win1.children[1].children[0].children[1].interact = function () {
+      	interactDoubleWDX(win1);        
+      }
+
       windows.add(win1);
 
       //finestra camera 2
       var win2 = mkDoubleWindow(1.125,1.35,1.2,1.137,1.45);
       win2.rotation.z = Math.PI/2;
+      //win2.children[0].rotation.y = Math.PI/2;
+      //win2.children[1].rotation.z = -Math.PI/2;
+      win2.name = "win2";
+      win2.children[0].children[0].interact = function () {
+      	interactDoubleWSX(win2);        
+      }
+      win2.children[0].children[1].interact = function () {
+      	interactDoubleWSX(win2);        
+      }
+      win2.children[1].children[0].children[0].interact = function () {
+      	interactDoubleWDX(win2);        
+      }
+      win2.children[1].children[0].children[1].interact = function () {
+      	interactDoubleWDX(win2);        
+      }     
       windows.add(win2);
 
       //finestra salotto 1
       var win3 = mkSingleWindow(1.5,1.3,12.2,3.25,1.6);
+      win3.name = "win3";
+      win3.children[0].children[0].interact = function () {
+      	interactSingleWBig(win3);        
+      }
+      win3.children[0].children[1].interact = function () {
+      	interactSingleWBig(win3);        
+      }
       windows.add(win3);
 
       //finestra salotto 2
-      var win4 = mkDoubleWindow(1.5,1.35,12.45,9,1.45);
+      var win4 = mkDoubleWindow(1.5,1.35,12.45,9,1.45);      
+      win4.name = "win4";
+      win4.children[0].children[0].interact = function () {
+      	interactDoubleWSX(win4);        
+      }
+      win4.children[0].children[1].interact = function () {
+      	interactDoubleWSX(win4);        
+      }
+      win4.children[1].children[0].children[0].interact = function () {
+      	interactDoubleWDX(win4);        
+      }
+      win4.children[1].children[0].children[1].interact = function () {
+      	interactDoubleWDX(win4);        
+      }     
       windows.add(win4);
-     
+
       //finestra corridoio
       var win5 = mkSingleWindow(1.5,1.3,9.25,3.25,1.6);
+      win5.name = "win5";
+      win5.children[0].children[0].interact = function () {
+      	interactSingleWBig(win5);        
+      }
+      win5.children[0].children[1].interact = function () {
+      	interactSingleWBig(win5);        
+      }
       windows.add(win5);
 
-      //finestra bagno
+      //finestra bagno1
       var win6 = mkSingleWindow(.8,1.35,7.4,9,1.45);
+      win6.name = "win6";
+      win6.children[0].children[0].interact = function () {
+      	interactSingleWSmall(win6);        
+      }
+      win6.children[0].children[1].interact = function () {
+      	interactSingleWSmall(win6);        
+      }
       windows.add(win6);
 
-      //finestra bagno
-      var win7 = mkSingleWindow(.8,1.35,9.6,9,1.45);
+      //finestra cucina
+      win7 = mkSingleWindow(.8,1.35,9.6,9,1.45);
+      win7.name = "win7";
+      win7.children[0].children[0].interact = function () {
+      	interactSingleWSmall(win7);        
+      }
+      win7.children[0].children[1].interact = function () {
+      	interactSingleWSmall(win7);        
+      }
       windows.add(win7);
 
-	return windows;
-}
+      return windows;
+  }
+
+  function interactDoubleWSX(window){
+  	window.open = false
+  	if (!this.open){
+  		new TWEEN.Tween(window.children[0].rotation)
+  		.to({x: Math.PI/2, y: -Math.PI/2, z:0 }, 2000)
+  		.easing(TWEEN.Easing.Bounce.Out)
+  		.start();
+  		this.open = true;
+  	}
+  	else
+  	{
+  		new TWEEN.Tween(window.children[0].rotation)
+  		.to({x: Math.PI/2, y: 0, z: 0}, 2000)
+  		.easing(TWEEN.Easing.Bounce.Out)
+  		.start();
+  		this.open = false
+  	}
+  }
+
+  function interactDoubleWDX(window){
+  	window.open = false
+  	if (!this.open){
+  		new TWEEN.Tween(window.children[1].rotation)
+  		.to({x: 0, y: 0, z:Math.PI/2 }, 2000)
+  		.easing(TWEEN.Easing.Bounce.Out)
+  		.start();
+  		this.open = true;
+  	}
+  	else
+  	{
+  		new TWEEN.Tween(window.children[1].rotation)
+  		.to({x: 0, y: 0, z: 0}, 2000)
+  		.easing(TWEEN.Easing.Bounce.Out)
+  		.start();
+  		this.open = false
+  	}
+  }
+
+  function interactSingleWSmall(window){
+  	window.open = false
+  	if (!this.open){
+  		new TWEEN.Tween(window.children[0].rotation)
+  		.to({x: Math.PI/2, y: -Math.PI/2, z:0 }, 2000)
+  		.easing(TWEEN.Easing.Bounce.Out)
+  		.start();
+  		this.open = true;
+  	}
+  	else
+  	{
+  		new TWEEN.Tween(window.children[0].rotation)
+  		.to({x: Math.PI/2, y: 0, z: 0}, 2000)
+  		.easing(TWEEN.Easing.Bounce.Out)
+  		.start();
+  		this.open = false
+  	}
+  }
+
+  function interactSingleWBig(window){
+  	window.open = false
+  	if (!this.open){
+  		new TWEEN.Tween(window.children[0].rotation)
+  		.to({x: Math.PI/2.4, y: 0, z:0 }, 2000)
+  		.easing(TWEEN.Easing.Bounce.Out)
+  		.start();
+  		this.open = true;
+  	}
+  	else
+  	{
+  		new TWEEN.Tween(window.children[0].rotation)
+  		.to({x: Math.PI/2, y: 0, z: 0}, 2000)
+  		.easing(TWEEN.Easing.Bounce.Out)
+  		.start();
+  		this.open = false
+  	}
+  }
 
 

@@ -87,7 +87,7 @@ function mkWallWindowDoor(wall_sideX,wall_sideY,hole_sideX,hole_sideY,door_sideX
 
 function createMesh(geom, imageFile) {
         var texture = THREE.ImageUtils.loadTexture("../final-project/images/" + imageFile)
-         var mat = new THREE.MeshBasicMaterial({side: THREE.DoubleSide});
+         var mat = new THREE.MeshLambertMaterial({side: THREE.DoubleSide});
          texture.wrapS = THREE.RepeatWrapping;
          texture.wrapT = THREE.RepeatWrapping;
 
@@ -97,6 +97,7 @@ function createMesh(geom, imageFile) {
 
 
         var mesh = new THREE.Mesh(geom, mat);
+        mesh.receiveshadow = true;
         return mesh;
       }
 
@@ -165,7 +166,7 @@ function mkWalls(){
       room2 = new THREE.Object3D();
       walls.add(room2);
 
-      var textureRoom2 = "cartabrown.jpg";
+      var textureRoom2 = "cartablu.jpg";
 
       //parete1
       var par1 = mkWall(5.2,heigh_wall,textureRoom2,1.4,4.602,heigh_floor);
@@ -199,7 +200,7 @@ function mkWalls(){
       closet = new THREE.Object3D();
       walls.add(closet);
 
-      var textureCloset = "cartabrown.jpg";
+      var textureCloset = "cartablu.jpg";
 
       //parete1
       var par1 = mkWall(4.2,heigh_wall,textureCloset,-1.898,6.7,heigh_floor);
@@ -287,7 +288,7 @@ function mkWalls(){
       bathroom1 = new THREE.Object3D();
       walls.add(bathroom1);
 
-      var textureBathroom = "cartablu2.jpg";
+      var textureBathroom = "darkBlue.jpg";
 
       //parete1
       var par1 = mkWall(3,heigh_wall,textureBathroom,7.298,7.3,heigh_floor);
@@ -313,7 +314,7 @@ function mkWalls(){
       bathroom2 = new THREE.Object3D();
       walls.add(bathroom2);
 
-      var textureBathroom = "cartablu2.jpg";
+      var textureBathroom = "darkBlue.jpg";
 
       //parete1
       var par1 = mkWall(3,heigh_wall,textureBathroom,5.098,7.3,heigh_floor);
@@ -322,7 +323,7 @@ function mkWalls(){
 
       //parete2
       var par2 = mkWall(1,heigh_wall,textureBathroom,5.6,5.802,heigh_floor);
-      bathroom2.add(par2);
+      bathroom2.add(par2)
 
       //parete3
       var par3 = mkWall(1,heigh_wall,textureBathroom,5.6,8.798,heigh_floor);
@@ -333,8 +334,7 @@ function mkWalls(){
       par4.rotation.y = Math.PI/2;
       bathroom2.add(par4);
 
-
-
+      
 
 
       return walls;

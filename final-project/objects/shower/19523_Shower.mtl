@@ -1,0 +1,41 @@
+# File produced by 
+
+newmtl object
+  Ns 26.4
+  d 1.0
+  illum 2
+  Kd 0.0902 0.0902 0.0902
+  Ka 0 0 0
+  Ks 0.7529 0.7529 0.7529
+
+newmtl object_1
+  Ns 88.63
+  d 1.0
+  illum 2
+  Kd 0.1569 0.1373 0.7686
+  Ka 0 0 0
+  Ks 0.1255 0.1098 0.6118
+
+newmtl object_2
+  Ns 64.5
+  d 1.0
+  illum 2
+  Kd 0.3412 0.3412 0.3412
+  Ka 0 0 0
+  Ks 0.3882 0.3882 0.3882
+
+newmtl object_3
+  Ns 114.03
+  d 0.17
+  illum 2
+  Kd 0.8314 0.9137 1.0
+  Ka 0 0 0
+  Ks 0.1647 0.1804 0.2
+
+newmtl object_4
+  Ns 114.03
+  d 1.0
+  illum 2
+  Kd 0.9451 0.9451 0.9451
+  Ka 0 0 0
+  Ks 0.8471 0.8471 0.8471

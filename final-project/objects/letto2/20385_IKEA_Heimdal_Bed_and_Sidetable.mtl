@@ -1,0 +1,65 @@
+# File produced by 
+
+newmtl Cube
+  Ns 81.01
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 0 0 0
+  Ks 1.0 1.0 1.0
+
+newmtl Cube1
+  Ns 81.01
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 0 0 0
+  Ks 1.0 1.0 1.0
+
+newmtl Cube2
+  Ns 26.4
+  d 1.0
+  illum 2
+  Kd 0.498 0.498 0.498
+  Ka 0 0 0
+  Ks 0.7176 0.7176 0.7176
+
+newmtl Cylinder_9
+  Ns 81.01
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 0 0 0
+  Ks 1.0 1.0 1.0
+
+newmtl Plane
+  Ns 26.4
+  d 1.0
+  illum 2
+  Kd 0.498 0.498 0.498
+  Ka 0 0 0
+  Ks 0.7176 0.7176 0.7176
+
+newmtl Plane_2
+  Ns 26.4
+  d 1.0
+  illum 2
+  Kd 0.498 0.498 0.498
+  Ka 0 0 0
+  Ks 0.7176 0.7176 0.7176
+
+newmtl sidet
+  Ns 26.4
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 0 0 0
+  Ks 0 0 0
+
+newmtl sidetable
+  Ns 26.4
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 0 0 0
+  Ks 0 0 0

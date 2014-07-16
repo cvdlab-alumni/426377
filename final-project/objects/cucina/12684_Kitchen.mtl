@@ -1,0 +1,49 @@
+# File produced by 
+
+newmtl Acciaio01
+  Ns 108.95
+  d 1.0
+  illum 2
+  Kd 0.1608 0.1608 0.1608
+  Ka 0 0 0
+  Ks 0.8471 0.8471 0.8471
+
+newmtl Acciaio01_1
+  Ns 61.96
+  d 0.3
+  illum 2
+  Kd 0.2941 0.1804 0.0118
+  Ka 0.2941 0.1804 0.0118
+  Ks 0.898 0.898 0.898
+
+newmtl Acciaio01_2
+  Ns 128.0
+  d 1.0
+  illum 2
+  Kd 0.6745 0.498 0.4196
+  Ka 0 0 0
+  Ks 0.2549 0.2549 0.2549
+
+newmtl Acciaio01_3
+  Ns 128.0
+  d 1.0
+  illum 2
+  Kd 0.4314 0.3176 0.2706
+  Ka 0 0 0
+  Ks 0.2549 0.2549 0.2549
+
+newmtl Acciaio01_4
+  Ns 128.0
+  d 1.0
+  illum 2
+  Kd 0.7059 0.8392 0.9333
+  Ka 0 0 0
+  Ks 0.0196 0.0196 0.0196
+
+newmtl Acciaio01_5
+  Ns 128.0
+  d 1.0
+  illum 2
+  Kd 0.498 0.498 0.498
+  Ka 0 0 0
+  Ks 0.6 0.6 0.6

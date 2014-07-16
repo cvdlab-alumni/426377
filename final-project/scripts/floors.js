@@ -17,6 +17,7 @@ function createMesh(geom, imageFile) {
 
 
         var mesh = new THREE.Mesh(geom, mat);
+        mesh.receiveShadow = true;
         return mesh;
       }
 
@@ -59,7 +60,7 @@ function mkFloors(){
       var heigh_floor = .202;
 
       //pavimento
-      var floor = mkShapeTexture("floor.jpg");
+      var floor = mkShapeTexture("parquet.jpg");
       floors.add( floor );
 
       //pavimento cucina

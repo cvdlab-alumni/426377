@@ -1,0 +1,19 @@
+newmtl Default
+Ka 0 0 0
+Kd 0.376471 0.376471 0.376471
+Ks 1 1 1
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+newmtl screen
+Ka 0.5 0.5 0.5
+Kd 0.207843 0.207843 0.207843
+Ks 1 1 1
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+
+
