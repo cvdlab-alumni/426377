@@ -28,8 +28,8 @@ function init(){
     root.add(mkPlaneTexture(1.7,1.7,"tappeto.jpg",13,7.8,0.22));
 
     //lights
-    //lights = mkLights();
-    //root.add(lights);
+    lights = mkLights();
+    root.add(lights);
 
 
     //furnitures&objects

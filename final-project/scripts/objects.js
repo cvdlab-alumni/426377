@@ -59,7 +59,7 @@ function loadStructure(){
 function loadObjs(){
 	var objects = new THREE.Object3D();
 	var color = 0x999999;
-/*
+
 	//tavolo cucina
 	objects.add(loadObj('tavolo-cucina/table.obj',10.2,8.5,0.2,0.019,0.027,0.019, Math.PI/2, Math.PI/2,0,color));
 
@@ -128,10 +128,10 @@ function loadObjs(){
 
     //libri
     objects.add(loadObjMtl('book/Book-Case',1.7,3.15,.98,.0055,.0055,.0055,Math.PI/2,-Math.PI/2,0));
-*/
+
     //auto
     objects.add(mkFerrari());
-/*
+
     //toaster
     objects.add(mkToaster());
 
@@ -210,7 +210,7 @@ function loadObjs(){
 
     //antenna
     objects.add(loadObj('antenna/antenaParabolica.obj', 15.65,5,2, .4,.4,.4, Math.PI/2,0,0,0xFFFFFF));
-    */
     
+
 	return objects;
 }
