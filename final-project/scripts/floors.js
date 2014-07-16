@@ -6,7 +6,7 @@ function mkPlaneTexture(side1,side2,texture, positionX,positionY,positionZ) {
 }
 
 function createMesh(geom, imageFile) {
-        var texture = THREE.ImageUtils.loadTexture("../final-project/images/" + imageFile)
+        var texture = THREE.ImageUtils.loadTexture("../final-project/images/textures/" + imageFile)
          var mat = new THREE.MeshBasicMaterial();
          texture.wrapS = THREE.RepeatWrapping;
          texture.wrapT = THREE.RepeatWrapping;

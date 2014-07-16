@@ -86,7 +86,7 @@ function mkWallWindowDoor(wall_sideX,wall_sideY,hole_sideX,hole_sideY,door_sideX
 
 
 function createMesh(geom, imageFile) {
-        var texture = THREE.ImageUtils.loadTexture("../final-project/images/" + imageFile)
+        var texture = THREE.ImageUtils.loadTexture("../final-project/images/textures/" + imageFile)
          var mat = new THREE.MeshLambertMaterial({side: THREE.DoubleSide});
          texture.wrapS = THREE.RepeatWrapping;
          texture.wrapT = THREE.RepeatWrapping;

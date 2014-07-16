@@ -52,7 +52,7 @@ function loadObjMtl(path, posX, posY, posZ, scalX, scalY, scalZ, rotX, rotY, rot
 	return object;
 }
 
-function loadMura(){
+function loadStructure(){
 	return loadObj('casa.obj',0,0,0,1,1,1,0,0,0,0x999999);
 }
 
@@ -128,10 +128,10 @@ function loadObjs(){
 
     //libri
     objects.add(loadObjMtl('book/Book-Case',1.7,3.15,.98,.0055,.0055,.0055,Math.PI/2,-Math.PI/2,0));
-
+*/
     //auto
     objects.add(mkFerrari());
-
+/*
     //toaster
     objects.add(mkToaster());
 
@@ -146,12 +146,12 @@ function loadObjs(){
 
     //bottle
     objects.add(loadObjMtl('bottle/beer_bottle',10.1,7.65,1.1,.015,.015,.015,Math.PI/2,Math.PI/2,0));
-*/
+
     //speakers
     objects.add(mkSpeakers());
 
     
-/*
+
     //flowers
     objects.add(loadObjMtl('flowers/flowers',13.5,6,1.43,.01,.01,.01,Math.PI/2,Math.PI/2,0));
 
@@ -207,6 +207,10 @@ function loadObjs(){
 
     //hangingclothes
     objects.add(loadObjMtl('hangingClothes/hanging-clothes2',3.9,5.1,2.07,.006,.006,.003,-Math.PI/2,0,Math.PI));
-*/
+
+    //antenna
+    objects.add(loadObj('antenna/antenaParabolica.obj', 15.65,5,2, .4,.4,.4, Math.PI/2,0,0,0xFFFFFF));
+    */
+    
 	return objects;
 }

@@ -1,16 +1,4 @@
 todo
 
-impostare swich trackball e pointerlock
-modificare percorsi importazione obj su file py e organizzare cartelle
-luci
-lampada, regolare angoli
-?webcam su pc o video
-pulisci codice
-inserire controlli
-rivedere pavimenti e carta da parati
-animazioni
-pc con click
-traduci tutto in inglese
-pareti
-auto con animazione che parte e va via?
-ombre
+fare commit
+

@@ -2,22 +2,22 @@ function mkDoorX(side1, side2, side3, texture1, texture2, texture3, positionX, p
   var door = new THREE.Object3D();
   var materials = [
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture3)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture3)
  }),
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture3)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture3)
  }),
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture2)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture2)
  }),
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture1)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture1)
  }),
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture3)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture3)
  }),
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture3)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture3)
  })
   ];
   doorMesh = new THREE.Mesh(
@@ -37,22 +37,22 @@ function mkDoorY(side1, side2, side3, texture1, texture2, texture3, positionX, p
   var door = new THREE.Object3D();
   var materials = [
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture3)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture3)
  }),
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture3)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture3)
  }),
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture2)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture2)
  }),
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture1)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture1)
  }),
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture3)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture3)
  }),
   new THREE.MeshLambertMaterial({
-   map: THREE.ImageUtils.loadTexture('../final-project/images/'+texture3)
+   map: THREE.ImageUtils.loadTexture('../final-project/images/textures/'+texture3)
  })
   ];
   doorMesh = new THREE.Mesh(

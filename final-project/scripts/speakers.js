@@ -9,7 +9,6 @@ function mkSpeakers(){
 	var material = new THREE.MeshBasicMaterial( {color: 0xffffff, transparent: true, opacity: 0} );
 	box1 = new THREE.Mesh(geom,material);
 	box1.position.set(11.4,6.2,.202);
-	//box1.rotation.set(Math.PI/2,Math.PI/2,0);
 	speakers.add(box1);
 
 
@@ -22,7 +21,6 @@ function mkSpeakers(){
 	var material = new THREE.MeshBasicMaterial( {color: 0xffffff, transparent: true, opacity: 0} );
 	box2 = new THREE.Mesh(geom,material);
 	box2.position.set(11.4,8.4,.202);
-	//box2.rotation.set(Math.PI/2,Math.PI/2,0);
 	speakers.add(box2);
 
 	var speakers_audio =  document.createElement('audio');

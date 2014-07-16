@@ -1,11 +1,10 @@
+
 function mkBump(posX, posY,posZ, width, heigh, imageFile, bump){
 
 
 	var quadro = createMeshBump(new THREE.BoxGeometry(width,0.005, heigh), imageFile, bump);
 	quadro.position.set(posX,posY,posZ);
 	return quadro;
-
-
 
 }
 

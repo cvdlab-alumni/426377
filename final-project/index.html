@@ -72,7 +72,7 @@
    width: 30px;
    height: 30px;
    display: none;
-   background-image: url("../final-project/images/pointer.png");
+   background-image: url("../final-project/images/pointer/pointer.png");
    background-repeat: no-repeat;
    background-size: contain;
  }
@@ -97,6 +97,9 @@
   <script src="../final-project/scripts/libs/TrackballControls.js"></script>
   <script src="../final-project/scripts/libs/tween.min.js"></script>
   <script src="../final-project/scripts/libs/PointerLockControls.js"></script>
+  <script src="../final-project/scripts/libs/OBJLoader.js"></script>
+  <script src="../final-project/scripts/libs/MTLLoader.js"></script>
+  <script src="../final-project/scripts/libs/OBJMTLLoader.js"></script>
   <script src="../final-project/scripts/floors.js"></script>
   <script src="../final-project/scripts/windows.js"></script>
   <script src="../final-project/scripts/doors.js"></script>
@@ -109,28 +112,21 @@
   <script src="../final-project/scripts/video.js"></script>
   <script src="../final-project/scripts/ferrari.js"></script>
   <script src="../final-project/scripts/speakers.js"></script>
-  <script src="../final-project/scripts/dat-gui.js"></script>
-  <!-- <script src="../final-project/scripts/render.js"></script> -->
   <script src="../final-project/scripts/pointerLock.js"></script>
   <script src="../final-project/scripts/intersects.js"></script> 
   <script src="../final-project/scripts/toast.js"></script> 
-  <script src="../final-project/scripts/setup.js"></script> 
-  <script src="../final-project/scripts/libs/OBJLoader.js"></script>
-  <script src="../final-project/scripts/libs/MTLLoader.js"></script>
-  <script src="../final-project/scripts/libs/OBJMTLLoader.js"></script>
 
   <script>
 
   $(function(){
-  var projector = new THREE.Projector();
+    var projector = new THREE.Projector();
     var stats = initStats();
 
     scene = new THREE.Scene();
-    //scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
 
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
     camera.lookAt(new THREE.Vector3(0, 0, 0));
-    camera.position.set(100, 100, 100)
+    camera.position.set(0,50,50);
 
     var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
     light.position.set( 1, 1, 1 );
@@ -140,106 +136,93 @@
     light.position.set( -1, - 0.5, -1 );
     scene.add( light );
 
-
     trackballControls = new THREE.TrackballControls(camera);
-
 
     var webGLRenderer = new THREE.WebGLRenderer();
     webGLRenderer.setClearColor( 0xffffff );
     webGLRenderer.setSize( window.innerWidth, window.innerHeight );
 
+    root = init();
+    root.rotation.x = -Math.PI/2;
+    root.scale.set(7,8,7);
+    root.position.y = -1.5;
+    scene.add(root);
 
+    $('body').append(webGLRenderer.domElement);
 
+    var step = 0;
+    var mesh;
 
+    //add skyBox
+    var imagePrefix = "../final-project/images/skybox/mountain-";
+    var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+    var imageSuffix = ".png";
+    var skyGeometry = new THREE.BoxGeometry( 600, 600, 600 ); 
 
-root = init();
-root.rotation.x = -Math.PI/2;
-root.scale.set(7,8,7);
-root.position.y = -1.5;
-scene.add(root);
+    var materialArray = [];
+    for (var i = 0; i < 6; i++)
+      materialArray.push( new THREE.MeshBasicMaterial({
+        map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
+        side: THREE.BackSide
+      }));
+    var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
+    var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
 
-$('body').append(webGLRenderer.domElement);
+    skyBox.position.set(0,50,0);
+    scene.add( skyBox );
 
-var step = 0;
-var mesh;
-
-
- //add skyBox
- var imagePrefix = "../final-project/images/skybox/mountain-";
- var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
- var imageSuffix = ".png";
- var skyGeometry = new THREE.BoxGeometry( 600, 600, 600 ); 
-
-
- var materialArray = [];
- for (var i = 0; i < 6; i++)
-  materialArray.push( new THREE.MeshBasicMaterial({
-    map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
-    side: THREE.BackSide
-  }));
-var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
-var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
-
-skyBox.position.set(0,50,0);
-scene.add( skyBox );
-
-// add axis helper
-var axisHelper = new THREE.AxisHelper(1);
-axisHelper.rotation.x = -Math.PI/2;
-axisHelper.visible = true;
-scene.add(axisHelper);
-
-
+  // add axis helper
+  var axisHelper = new THREE.AxisHelper(1);
+  axisHelper.rotation.x = -Math.PI/2;
+  axisHelper.visible = true;
+  scene.add(axisHelper);
 
   document.addEventListener('mousedown', onDocumentMouseDown, false);
 
 
+  function onDocumentMouseDown (event) {
+    event.preventDefault();
+    if (document.pointerLockElement === element || document.mozPointerLockElement === element || 
+      document.webkitPointerLockElement === element) {
+      var raycaster = new THREE.Raycaster(controls.getObject().position, controls.getDirection(new THREE.Vector3(0, 0, 0)).clone());
+  }
+  else {
+    var vector = new THREE.Vector3(( event.clientX / window.innerWidth ) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1, 0.5);
+    projector.unprojectVector(vector, camera);
 
-function onDocumentMouseDown (event) {
-  event.preventDefault();
-  if (document.pointerLockElement === element || document.mozPointerLockElement === element || 
-    document.webkitPointerLockElement === element) {
-  // var vector = new THREE.Vector3(0, 0, 2);
-  // projector.unprojectVector(vector, camera);
-  var raycaster = new THREE.Raycaster(controls.getObject().position, controls.getDirection(new THREE.Vector3(0, 0, 0)).clone());
-        // map viewport coordinates in ([-1,1], [-1,1], 0.5)
-      }else{
-        var vector = new THREE.Vector3(( event.clientX / window.innerWidth ) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1, 0.5);
-        projector.unprojectVector(vector, camera);
-
-        var raycaster = new THREE.Raycaster(camera.position, 
-          vector.sub(camera.position).normalize());
-      }   
-        //creare array "toIntersect"
-        toIntersect = [
-        root.getObjectByName("portone",true).children[0],
-        root.getObjectByName("door1",true).children[0],  
-        root.getObjectByName("door2",true).children[0],
-        root.getObjectByName("door3",true).children[0],
-        root.getObjectByName("door4",true).children[0],
-        root.getObjectByName("door5",true).children[0],
-        root.getObjectByName("door6",true).children[0],
-        root.getObjectByName("win1",true).children[0].children[0],
-        root.getObjectByName("win1",true).children[0].children[1],
-        root.getObjectByName("win1",true).children[1].children[0].children[0],
-        root.getObjectByName("win1",true).children[1].children[0].children[1],
-        root.getObjectByName("win4",true).children[0].children[0],
-        root.getObjectByName("win4",true).children[0].children[1],
-        root.getObjectByName("win4",true).children[1].children[0].children[0],
-        root.getObjectByName("win4",true).children[1].children[0].children[1],
-        root.getObjectByName("win2",true).children[0].children[0],
-        root.getObjectByName("win2",true).children[0].children[1],
-        root.getObjectByName("win2",true).children[1].children[0].children[0],
-        root.getObjectByName("win2",true).children[1].children[0].children[1],
-        root.getObjectByName("win7",true).children[0].children[0],
-        root.getObjectByName("win7",true).children[0].children[1],   
-        root.getObjectByName("win6",true).children[0].children[0],
-        root.getObjectByName("win6",true).children[0].children[1],
-        root.getObjectByName("win5",true).children[0].children[0],
-        root.getObjectByName("win5",true).children[0].children[1],   
-        root.getObjectByName("win3",true).children[0].children[0],
-        root.getObjectByName("win3",true).children[0].children[1],  
-        root.getObjectByName("lamp1",true).children[0],
+    var raycaster = new THREE.Raycaster(camera.position, 
+      vector.sub(camera.position).normalize());
+  }   
+    //creare array "toIntersect"
+    toIntersect = [
+    root.getObjectByName("portone",true).children[0],
+    root.getObjectByName("door1",true).children[0],  
+    root.getObjectByName("door2",true).children[0],
+    root.getObjectByName("door3",true).children[0],
+    root.getObjectByName("door4",true).children[0],
+    root.getObjectByName("door5",true).children[0],
+    root.getObjectByName("door6",true).children[0],
+    root.getObjectByName("win1",true).children[0].children[0],
+    root.getObjectByName("win1",true).children[0].children[1],
+    root.getObjectByName("win1",true).children[1].children[0].children[0],
+    root.getObjectByName("win1",true).children[1].children[0].children[1],
+    root.getObjectByName("win4",true).children[0].children[0],
+    root.getObjectByName("win4",true).children[0].children[1],
+    root.getObjectByName("win4",true).children[1].children[0].children[0],
+    root.getObjectByName("win4",true).children[1].children[0].children[1],
+    root.getObjectByName("win2",true).children[0].children[0],
+    root.getObjectByName("win2",true).children[0].children[1],
+    root.getObjectByName("win2",true).children[1].children[0].children[0],
+    root.getObjectByName("win2",true).children[1].children[0].children[1],
+    root.getObjectByName("win7",true).children[0].children[0],
+    root.getObjectByName("win7",true).children[0].children[1],   
+    root.getObjectByName("win6",true).children[0].children[0],
+    root.getObjectByName("win6",true).children[0].children[1],
+    root.getObjectByName("win5",true).children[0].children[0],
+    root.getObjectByName("win5",true).children[0].children[1],   
+    root.getObjectByName("win3",true).children[0].children[0],
+    root.getObjectByName("win3",true).children[0].children[1],  
+/*        root.getObjectByName("lamp1",true).children[0],
         root.getObjectByName("lamp2",true).children[0], 
         root.getObjectByName("lamp3",true).children[0], 
         root.getObjectByName("lamp4",true).children[0], 
@@ -252,69 +235,56 @@ function onDocumentMouseDown (event) {
         root.getObjectByName("lamp",true).getObjectByName("joint3",true).children[0].children[0].children[0],
         root.getObjectByName("lamp",true).getObjectByName("cylinder",true),
         //root.getObjectByName("toaster",true).children[2],
-        //root.getObjectByName("ferrari",true).children[1],
-          root.getObjectByName("speakers",true).children[1],
-          root.getObjectByName("speakers",true).children[3]             
-        ];
-        
-        intersects = raycaster.intersectObjects(toIntersect);
+  */      root.getObjectByName("ferrari",true).children[1],
+    //      root.getObjectByName("speakers",true).children[1],
+    //      root.getObjectByName("speakers",true).children[3]             
+                ];
 
-        if (intersects.length > 0) {
-          intersects[ 0 ].object.interact && intersects[ 0 ].object.interact( )
-          //intersects[ 0 ].object.material.opacity = 0.1;
-        }
-      }
+          intersects = raycaster.intersectObjects(toIntersect);
 
-
-
-      var controls;
-      var ray;
-      var objects = [];
-      var PLenabled = false;
-      var blocker = document.getElementById( 'blocker' );
-//var instructions = document.getElementById( 'instructions' );
-
-
-
-      // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
-      var rayMove = new THREE.Raycaster();
-      rayMove.ray.direction.set(0, 0, -1); 
-
-      var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
-
-      if ( havePointerLock ) {
-        var element = document.body;
-        var pointerlockchange = function ( event ) {
-
-          if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
-            controls.enabled = true;
-            //blocker.style.display = 'none';
-            PLenabled = true;
-            $("#pointer").fadeIn(1000);
-            controls.isOnObject(false);
-            rayMove.ray.origin.copy(controls.getObject().position);
-            rayMove.ray.origin.y -= 4;
-            var intersections = rayMove.intersectObjects(objects);
-            if (intersections.length > 0) {
-              var distance = intersections[0].distance;
-              if (distance > 0 && distance < 4) {
-                controls.isOnObject(true);
-              }
-            }
-            controls.update();
-          } else {
-            controls.enabled = false;
-            location.reload();
-            //blocker.style.display = '-webkit-box';
-            //blocker.style.display = '-moz-box';
-            //blocker.style.display = 'box';
-            //instructions.style.display = '';
+          if (intersects.length > 0) {
+            intersects[ 0 ].object.interact && intersects[ 0 ].object.interact( )
           }
         }
 
-        var pointerlockerror = function ( event ) {
-         location.reload();
-       }
+        var controls;
+        var ray;
+        var objects = [];
+        var PLenabled = false;
+        var blocker = document.getElementById( 'blocker' );
+        var rayMove = new THREE.Raycaster();
+        rayMove.ray.direction.set(0, 0, -1); 
+
+        var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+
+        if ( havePointerLock ) {
+          var element = document.body;
+          var pointerlockchange = function ( event ) {
+
+            if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
+              controls.enabled = true;
+              PLenabled = true;
+              $("#pointer").fadeIn(1000);
+              controls.isOnObject(false);
+              rayMove.ray.origin.copy(controls.getObject().position);
+              rayMove.ray.origin.y -= 4;
+              var intersections = rayMove.intersectObjects(objects);
+              if (intersections.length > 0) {
+                var distance = intersections[0].distance;
+                if (distance > 0 && distance < 4) {
+                  controls.isOnObject(true);
+                }
+              }
+              controls.update();
+            } else {
+              controls.enabled = false;
+              location.reload();
+            }
+          }
+
+          var pointerlockerror = function ( event ) {
+           location.reload();
+         }
 
         // Hook pointer lock state change events
         document.addEventListener( 'pointerlockchange', pointerlockchange, false );
@@ -328,10 +298,6 @@ function onDocumentMouseDown (event) {
           initialise();
           trackballControls.reset();
 
-
-
-          //instructions.addEventListener( 'click', function ( event ) {
-          //instructions.style.display = 'none';
 
           // Ask the browser to lock the pointer
           element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
@@ -358,84 +324,56 @@ function onDocumentMouseDown (event) {
         };
       }
 
+      render();
 
+      function initialise() {
 
+        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
+        camera.lookAt(new THREE.Vector3(0, 0, 1));
 
+        controls = new THREE.PointerLockControls( camera );
+        scene.add( controls.getObject() );
 
+        ray = new THREE.Raycaster();
+        ray.ray.direction.set( 0, -1, 0 );
 
+        renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor( 0xffffff );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        document.body.appendChild( renderer.domElement );
 
-  //var trackballControls = new THREE.TrackballControls(camera);
-
-  //initialise();
-
-
-
-
-
-
-  //PLcontrol();
-  render();
-
-  function initialise() {
-
-
-
-    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
-    camera.lookAt(new THREE.Vector3(0, 0, 1));
-
-
-    controls = new THREE.PointerLockControls( camera );
-    scene.add( controls.getObject() );
-
-    ray = new THREE.Raycaster();
-    ray.ray.direction.set( 0, -1, 0 );
-
-
-
-
-
-    renderer = new THREE.WebGLRenderer();
-    renderer.setClearColor( 0xffffff );
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    document.body.appendChild( renderer.domElement );
-
-
-
-
-
-    window.addEventListener( 'resize', onWindowResize, false );
-  }
-
-  function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-  }
-
-  function PLcontrol() {
-
-    controls.isOnObject( false );
-    ray.ray.origin.copy( controls.getObject().position );
-    ray.ray.origin.y -= 10;
-    var intersections = ray.intersectObjects( objects );
-    if ( intersections.length > 0 ) {
-      var distance = intersections[ 0 ].distance;
-      if ( distance > 0 && distance < 10 ) {
-        controls.isOnObject( true );
+        window.addEventListener( 'resize', onWindowResize, false );
       }
-    }
 
-    controls.update();
-  }
-  function render() {
-        //render function
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+      }
+
+      function PLcontrol() {
+
+        controls.isOnObject( false );
+        ray.ray.origin.copy( controls.getObject().position );
+        ray.ray.origin.y -= 10;
+        var intersections = ray.intersectObjects( objects );
+        if ( intersections.length > 0 ) {
+          var distance = intersections[ 0 ].distance;
+          if ( distance > 0 && distance < 10 ) {
+            controls.isOnObject( true );
+          }
+        }
+
+        controls.update();
+      }
+
+      function render() {
         stats.update();
         trackballControls.update();
         TWEEN.update();
 
         if (tv.readyState === tv.HAVE_ENOUGH_DATA) {
           if (root.getObjectByName("tv").material.map) root.getObjectByName("tv").material.map.needsUpdate = true;
-
         }
 
         if (pc.readyState === pc.HAVE_ENOUGH_DATA) {
@@ -445,15 +383,9 @@ function onDocumentMouseDown (event) {
         if (PLenabled === true) {
           PLcontrol();
         }
-
         requestAnimationFrame( render );
         webGLRenderer.render(scene, camera);
-
       }
-
-
-
-
 
       var controls = new function () {
 
@@ -485,23 +417,17 @@ function onDocumentMouseDown (event) {
         this.RotationDelta = 1.0;
         this.RotationEpsilon = 1.1;
 
-        this.light1 = 1;
-        this.light2 = 1;
-        this.light3 = 1;
-        this.light4 = 1;
-        this.light5 = 1;
-        this.light6 = 1;
-        this.light7 = 1;
-        this.light8 = 1;
+        this.light1 = 2;
+        this.light2 = 2;
+        this.light3 = 2;
+        this.light4 = 2;
+        this.light5 = 2;
+        this.light6 = 2;
+        this.light7 = 2;
+        this.light8 = 2;
         
         this.switchPL = switchPL;
-
-
       };
-
-
-
-
 
       var gui = new dat.GUI();
 
@@ -513,7 +439,6 @@ function onDocumentMouseDown (event) {
       });
 
       bumpFolder = gui.addFolder("Bumps");
-
       bumpFolder.add(controls, "bumpScaleMonet", -2, 2).onChange(controls.updateBumpMonet);
       bumpFolder.add(controls, "bumpScaleMonna", -2, 2).onChange(controls.updateBumpMonna);
       bumpFolder.add(controls, "bumpScaleCarav", -2, 2).onChange(controls.updateBumpCarav);
@@ -522,7 +447,6 @@ function onDocumentMouseDown (event) {
       
 
       lampFolder = gui.addFolder("Lamp");
-
       lampFolder.add(controls, 'RotationAlpha',0.0,2*Math.PI).onChange(function (e) {
         root.getObjectByName("joint1",true).rotation.y = e;
       });
@@ -544,9 +468,7 @@ function onDocumentMouseDown (event) {
       });
 
 
-
       lightFolder = gui.addFolder("Light");
-
       lightFolder.add(controls, 'light1',0.0,5).onChange(function (e) {
         root.getObjectByName("lamp1",true).children[2].intensity = e;
       });
@@ -580,11 +502,8 @@ function onDocumentMouseDown (event) {
       });
 
 
-
-
-
-function initStats() {
-  var stats = new Stats();
+      function initStats() {
+        var stats = new Stats();
         stats.setMode(0); // 0: fps, 1: ms
         $('body').append(stats.domElement);
         return stats;

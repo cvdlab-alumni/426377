@@ -43,7 +43,7 @@ function mkLight(posX,posY){
 	semiSphere.interact = function () {
 		lamp.on = false
 		if (!this.on){
-			spotLight.intensity = 2;
+			spotLight.intensity = 3;
 			this.on = true;
 		}
 		else
@@ -72,7 +72,7 @@ function mkLights(){
 	lamps.add(lamp1);
 
 	//corridoio1
-	lamp2 = mkLight(9,4);
+	lamp2 = mkLight(8,4);
 	lamp2.name = "lamp2";
 	lamps.add(lamp2);
 
